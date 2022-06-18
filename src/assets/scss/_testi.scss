@@ -1,0 +1,69 @@
+//
+// testi.scss
+//
+ul.slick-dots {
+    text-align: center;
+    margin-top: 10px;
+    position: unset; 
+
+    button::before {
+        width: 10px!important;
+        height: 10px!important;
+        border-radius: 50%;
+        box-sizing: border-box;
+        background: rgba($primary, 0.5) !important;
+        transition: all 0.5s ease;
+        border: 2px solid rgba($white, 0.5);
+        margin: 0 4px;
+        padding: 0;
+        color: transparent!important;
+        &.tns-nav-active {
+            background: $primary !important;
+            border-color: $primary;
+        }
+    }
+}
+
+//Roadmap
+.tiny-timeline {
+    position: relative;
+    width: 100%;
+    margin: 0 auto;
+    &:before {
+        content: "";
+        position: absolute;
+        width: 100%;
+        top: 17px;
+        left: 0;
+        height: 2px;
+        background: $primary;
+    }
+    .item-box {
+        margin: 70px 15px;
+        &:before,
+        &:after {
+            content: "";
+            position: absolute;
+            left: 50%;
+            background: $primary;
+        }
+        &:before {
+            width: 2px;
+            height: 46px;
+            top: -46px;
+            transform: translateX(-50%);
+        }
+        &:after {
+            width: 13px;
+            height: 13px;
+            top: -59px;
+            border-radius: 3px;
+            transform: translateX(-50%) rotate(45deg);
+        }
+    }
+}
+
+//Slick slider
+.slick-arrow {
+    display: none !important;
+  }
