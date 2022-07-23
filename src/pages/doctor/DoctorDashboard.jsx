@@ -1,4 +1,4 @@
-import DoctorDashboardMain from "../../layouts/doctor-dashboard/DoctorDashboardMain";
+import { Outlet } from "react-router-dom";
 import DoctorDashboardSideBar from "../../layouts/doctor-dashboard/DoctorDashboardSideBar";
 import HeaderOne from "../../layouts/headers/HeaderOne";
 
@@ -14,7 +14,7 @@ export default function DoctorDashboard() {
                         <DoctorDashboardSideBar />
                     </div>
                     <div className="col-xl-9 col-lg-8 col-md-7 mt-4 mt-sm-0">
-                        <DoctorDashboardMain />
+                       <Outlet />
                     </div>
                 </div>
             </div>

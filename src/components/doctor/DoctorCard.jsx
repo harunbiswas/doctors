@@ -24,7 +24,7 @@ export default function DoctorCard() {
                                         <img src={img} className="img-fluid" alt="" />
                                         <ul className="list-unstyled team-like">
                                             <li>
-                                                <a onClick={favoriteHandler} href="#" className="btn btn-icon btn-pills btn-soft-danger">
+                                                <a onClick={favoriteHandler} className="btn btn-icon btn-pills btn-soft-danger">
                                                     <i data-feather="heart" className="icons">
                                                     {isFavorite && <AiTwotoneHeart />||<AiOutlineHeart /> }
                                                     </i>

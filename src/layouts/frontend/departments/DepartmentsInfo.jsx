@@ -1,5 +1,4 @@
 import { useState } from "react"
-import { BsEyeFill } from 'react-icons/bs'
 
 export default function DepartmentsInfo() {
     const [services, setServices] = useState([1,1,1,1,1,1,1,1])
@@ -10,7 +9,7 @@ export default function DepartmentsInfo() {
                         <div key={i} className="col-xl-3 col-md-4 col-12 mt-5">
                             <div className="card features feature-primary bg-transparent border-0">
                                 <div className="icon text-center rounded-md">
-                                    <i className="ri-eye-fill h3 mb-0"><BsEyeFill /></i>
+                                    <i className="ri-eye-fill h3 mb-0"></i>
                                 </div>
                                 <div className="card-body p-0 mt-3">
                                     <a href="departments.html" className="title text-dark h5">Eye Care</a>

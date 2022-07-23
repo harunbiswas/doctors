@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { BsPlay, BsPlayFill } from 'react-icons/bs';
 import img from '../../../assets/images/about/about-2.png';
 
 export default function AboutVideo() {
@@ -23,7 +22,7 @@ export default function AboutVideo() {
                             <img src={img} className="img-fluid" alt="" />
                             <div className="play-icon">
                                 <a onMouseEnter={hoverHandler} onMouseLeave={hoverOutHandler} href="#" data-bs-toggle="modal" data-bs-target="#watchvideomodal" className="play-btn video-play-icon">
-                                    <i className="mdi mdi-play text-primary rounded-circle bg-white title-bg-dark shadow">{isHover && <BsPlay />|| <BsPlayFill />}</i>
+                                    <i className="mdi mdi-play text-primary rounded-circle bg-white title-bg-dark shadow"></i>
                                 </a>
                             </div>
                         </div>

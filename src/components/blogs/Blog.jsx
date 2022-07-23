@@ -1,5 +1,3 @@
-import { AiOutlineHeart, AiTwotoneHeart } from 'react-icons/ai'
-import { BiMessage } from 'react-icons/bi'
 import img from '../../assets/images/blog/01.jpg'
 
 export default function Blog() {
@@ -16,9 +14,9 @@ export default function Blog() {
                                 <a href="blog-detail.html" className="text-dark title h5">Easily connect to doctor and make a treatment</a>
                                 <div className="post-meta d-flex justify-content-between mt-3">
                                     <ul className="list-unstyled mb-0">
-                                        <li className="list-inline-item me-2 mb-0"><a href="#" className="text-muted like"><i className="mdi mdi-heart-outline me-1">{<AiOutlineHeart />|| <AiTwotoneHeart />}</i>33</a></li>
+                                        <li className="list-inline-item me-2 mb-0"><a href="#" className="text-muted like"><i className="mdi mdi-heart-outline me-1"></i>33</a></li>
                                         <li className="list-inline-item"><a href="#" className="text-muted comments"><i className="mdi mdi-comment-outline me-1">
-                                            <BiMessage />
+                                            
                                             </i>08</a></li>
                                     </ul>
                                     <a href="/blog-detail/1" className="link">Read More <i className="mdi mdi-chevron-right align-middle"></i></a>

@@ -251,6 +251,15 @@ button:not(:disabled) {
     border-radius: 5px;
     box-shadow: $shadow;
     top: 2px !important;
+
+    &.show {
+        
+            position: absolute;
+            inset: 0px auto auto 0px;
+            margin: 0px;
+            transform: translate(-136px, 38px);
+        
+    }
     .dropdown-item {
         padding: 5px 20px;
         clear: both;

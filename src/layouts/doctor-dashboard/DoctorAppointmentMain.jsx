@@ -1,6 +1,4 @@
 import { useState } from "react"
-import { BsCheckCircle, BsEye } from 'react-icons/bs'
-import { ImCancelCircle } from 'react-icons/im'
 import img1 from '../../assets/images/client/03.jpg'
 import img2 from '../../assets/images/client/04.jpg'
 
@@ -91,9 +89,9 @@ import img2 from '../../assets/images/client/04.jpg'
                                                 </td>
                                                 <td className="p-3">$50/Patient</td>
                                                 <td className="text-end p-3">
-                                                    <a href="#" className="btn btn-icon btn-pills btn-soft-primary mx-1" data-bs-toggle="modal" data-bs-target="#viewappointment"><BsEye /><i className="uil uil-eye"></i></a>
-                                                    <a href="#" className="btn btn-icon btn-pills btn-soft-success mx-1" data-bs-toggle="modal" data-bs-target="#acceptappointment"><BsCheckCircle /><i className="uil uil-check-circle"></i></a>
-                                                    <a href="#" className="btn btn-icon btn-pills btn-soft-danger mx-1" data-bs-toggle="modal" data-bs-target="#cancelappointment"><ImCancelCircle /><i className="uil uil-times-circle"></i></a>
+                                                    <a href="#" className="btn btn-icon btn-pills btn-soft-primary mx-1" data-bs-toggle="modal" data-bs-target="#viewappointment"><i className="uil uil-eye"></i></a>
+                                                    <a href="#" className="btn btn-icon btn-pills btn-soft-success mx-1" data-bs-toggle="modal" data-bs-target="#acceptappointment"><i className="uil uil-check-circle"></i></a>
+                                                    <a href="#" className="btn btn-icon btn-pills btn-soft-danger mx-1" data-bs-toggle="modal" data-bs-target="#cancelappointment"><i className="uil uil-times-circle"></i></a>
                                                 </td>
                                             </tr>
                                             ))}

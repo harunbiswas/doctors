@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState } from "react";
 
  export default function Schedule() {
     const[buttons, setButtons] = useState([
@@ -19,6 +19,8 @@ import { useState } from "react"
     },
 ])
 
+
+
     return(
         <>
         <h5 className="mb-0">Schedule Timing</h5>
@@ -38,7 +40,7 @@ import { useState } from "react"
                                         <div className="mt-2">
                                             <div className="form-check">
                                                 <input className="form-check-input" type="checkbox" value="" id="drop-remove" />
-                                                <label className="form-check-label" for="drop-remove">Remove after drop</label>
+                                                <label className="form-check-label" htmlFor="drop-remove">Remove after drop</label>
                                             </div>
                                         </div>
                                     </div>
@@ -48,11 +50,12 @@ import { useState } from "react"
                             
                             <div className="col-xl-10 col-lg-8 col-12 mt-4">
                                 <div id="calendar-container" className="card rounded border-0 shadow p-4">
-                                    <div id="calendar"></div>
+                                    {/* <ScheduleCalender /> */}
                                 </div>
                             </div>
                             {/* <!--end col--> */}
                         </div>
+                        {/* <ScheduleCalender /> */}
                         {/* <!--end row--> */}
         </>
     )

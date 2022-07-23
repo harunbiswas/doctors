@@ -39,7 +39,7 @@ export default function ContactInfo() {
                         <div key={i} className="col-lg-4 col-md-6">
                         <div className="card features feature-primary text-center border-0">
                             <div className="icon text-center rounded-md mx-auto">
-                                <i className="uil uil-phone h3 mb-0">{info.icon}</i>
+                                <i className="uil h3 mb-0">{info.icon}</i>
                             </div>
                             <div className="card-body p-0 mt-3">
                                 <h5>{info.name}</h5>

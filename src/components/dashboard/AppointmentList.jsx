@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import { HiArrowSmRight } from 'react-icons/hi'
 import img from '../../assets/images/client/06.jpg'
 
 export default function AppointmentList() {
@@ -27,7 +26,7 @@ export default function AppointmentList() {
                                                             <small className="text-muted">Booking on 27th Nov, 2020</small>
                                                         </div>
                                                     </div>
-                                                    <i className="uil uil-arrow-right h4 text-dark"><HiArrowSmRight /></i>
+                                                    <i className="uil uil-arrow-right h4 text-dark"></i>
                                                 </div>
                                             </a>
                                         </li>

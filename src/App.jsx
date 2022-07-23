@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import { BrowserRouter } from 'react-router-dom'
 import './assets/scss/style.scss'
-import Footer from './layouts/footers/Footer'
 import Roots from './roots/Roots'
 
 function App() {
@@ -11,7 +10,6 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <Roots />
-        <Footer />
       </BrowserRouter>
     </div>
   )

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { FiSearch, FiSettings } from 'react-icons/fi';
+import { FiSettings } from 'react-icons/fi';
 import logoDark from '../../assets/images/logo-dark.png';
 import logo from '../../assets/images/logo-light.png';
 
@@ -70,13 +70,13 @@ export default function HeaderOne() {
                 <ul className="dropdowns list-inline mb-0">
                     <li className="list-inline-item mb-0">
                         <a href="javascript:void(0)" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
-                            <div className="btn btn-icon btn-pills btn-primary"><i data-feather="settings" className="fea icon-sm"><FiSearch /></i></div>
+                            <div className="btn btn-icon btn-pills btn-primary"><i data-feather="settings" className="fea icon-sm"><FiSettings /></i></div>
                         </a>
                     </li>
 
                     <li className="list-inline-item mb-0 ms-1">
                         <a href="javascript:void(0)" className="btn btn-icon btn-pills btn-primary" data-bs-toggle="offcanvas" data-bs-target="#offcanvasTop" aria-controls="offcanvasTop">
-                            <i className="uil uil-search"><FiSettings /></i>
+                            <i className="uil uil-search"></i>
                         </a>
                     </li>
 
