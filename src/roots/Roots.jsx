@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 import AdminDashboardMain from "../layouts/admin/AdminDashboardMain";
 import DoctorDashboardMain from "../layouts/doctor-dashboard/DoctorDashboardMain";
-import AdminAddDoctor from "../pages/admin/AdminAddDoctor";
+import AdminAddClinic from "../pages/admin/AdminAddClinic";
 import AdminAddPatient from "../pages/admin/AdminAddPatient";
 import AdminAppointment from "../pages/admin/AdminAppointment";
 import AdminBlogDetail from "../pages/admin/AdminBlogDetail";
@@ -39,7 +39,9 @@ import Singup from "../pages/Singup";
 export default function Roots() {
   const [role, setRole] = useState(null);
   useEffect(() => {
-    setRole(JSON.parse(localStorage.getItem("login")).value.loginData.role);
+    if (localStorage.getItem("login")) {
+      setRole(JSON.parse(localStorage.getItem("login")).value.loginData.role);
+    }
   }, []);
 
   return (
@@ -85,11 +87,18 @@ export default function Roots() {
         <Route exact path="patient-invoice" element={<PatientInvoce />} />
       </Route>
       {/* dashboard  */}
-      <Route exact path="admin" element={<AdminDashboard />}>
-        <Route index element={<AdminDashboardMain />} />
+      <Route exact path="/admin" element={<AdminDashboard />}>
+        <Route
+          index
+          element={
+            (role && role === "admin" && <AdminDashboardMain />) || (
+              <Navigate to="/login" />
+            )
+          }
+        />
         <Route path="appointment" element={<AdminAppointment />} />
-        <Route path="doctors" element={<AdminDoctors />} />
-        <Route path="add-doctor" element={<AdminAddDoctor />} />
+        <Route path="clinic" element={<AdminDoctors />} />
+        <Route path="add-clinic" element={<AdminAddClinic />} />
         <Route path="dr-profile" element={<AdminDoctroProfile />} />
         <Route path="patients" element={<AdminPatients />} />
         <Route path="add-patient" element={<AdminAddPatient />} />

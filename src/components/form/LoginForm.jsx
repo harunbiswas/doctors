@@ -11,11 +11,11 @@ export default function LoginForm() {
 
   // onchange handler
   const emailHandler = (e) => {
-    setErrors({ email: null });
+    setErrors({ ...errors, email: null });
     setEmail(e.target.value);
   };
   const passwordHandler = (e) => {
-    setErrors({ password: null });
+    setErrors({ ...errors, password: null });
     setPassword(e.target.value);
   };
 
