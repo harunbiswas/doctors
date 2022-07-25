@@ -46,7 +46,6 @@ export default function LoginForm() {
       })
       .catch((e) => {
         setErrors(e.response.data);
-        console.log(e.response);
       });
   };
 
@@ -61,15 +60,17 @@ export default function LoginForm() {
             <input
               id="email"
               type="email"
-              className={`form-control ${(errors.email && "errors") || ""}`}
+              className={`form-control ${
+                (errors && errors.email && "errors") || ""
+              }`}
               placeholder="Email"
               name="email"
               value={email}
               onChange={(e) => emailHandler(e)}
             />
-            <span className="error-msg text-danger">
-              {errors.email && errors.email.msg}
-            </span>
+            {errors && errors.email && (
+              <span className="error-msg text-danger">{errors.email.msg}</span>
+            )}
           </div>
         </div>
 
@@ -81,14 +82,18 @@ export default function LoginForm() {
             <input
               type="password"
               id="password"
-              className={`form-control ${(errors.password && "errors") || ""}`}
+              className={`form-control ${
+                (errors && errors.password && "errors") || ""
+              }`}
               placeholder="Password"
               value={password}
               onChange={(e) => passwordHandler(e)}
             />
-            <span className="error-msg text-danger">
-              {errors.password && errors.password.msg}
-            </span>
+            {errors && errors.password && (
+              <span className="error-msg text-danger">
+                {errors.password.msg}
+              </span>
+            )}
           </div>
         </div>
 

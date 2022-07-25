@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import AddClinicFrom from "../../components/form/AddClinicForm";
 import AdminDoctorListSideBar from "../../layouts/admin/AdminDoctorListSIdeBar";
 
@@ -6,18 +7,15 @@ export default function AdminAddClinic() {
     <>
       <div className="layout-specing">
         <div className="d-md-flex justify-content-between">
-          <h5 className="mb-0">Add New Doctor</h5>
+          <h5 className="mb-0">Add New Clinic</h5>
 
           <nav aria-label="breadcrumb" className="d-inline-block mt-4 mt-sm-0">
             <ul className="breadcrumb bg-transparent rounded mb-0 p-0">
               <li className="breadcrumb-item">
-                <a href="index.html">Doctris</a>
-              </li>
-              <li className="breadcrumb-item">
-                <a href="doctors.html">Doctors</a>
+                <Link to="/admin/clinic">Clinics</Link>
               </li>
               <li className="breadcrumb-item active" aria-current="page">
-                Add Doctor
+                Add Clinic
               </li>
             </ul>
           </nav>

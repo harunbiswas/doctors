@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useRef, useState } from "react";
 import Values from "../../Values";
+import OkMessage from "../basic/OkMessage";
 
 export default function AddClinicFrom() {
   const [imgUrl, setImgUrl] = useState(null);
@@ -18,6 +19,7 @@ export default function AddClinicFrom() {
   const imgHandler = (e) => {
     setFile(e.target.files[0]);
     setImgUrl(URL.createObjectURL(e.target.files[0]));
+    setErrors({ ...errors, image: null });
   };
 
   // form controler
@@ -32,41 +34,48 @@ export default function AddClinicFrom() {
   // handler
   const nameHandler = (e) => {
     setName(e.target.value);
-    setErrors({ name: "" });
+    setErrors({ ...errors, name: "" });
   };
 
   const PhoneHandler = (e) => {
     setPhone(e.target.value);
-    setErrors({ phone: null });
+    setErrors({ ...errors, phone: null });
   };
 
   const emailHandler = (e) => {
     setEmail(e.target.value);
-    setErrors({ email: null });
+    setErrors({ ...errors, email: null });
   };
 
   const passwordHandler = (e) => {
     setPassword(e.target.value);
-    setErrors({ password: null });
+    setErrors({ ...errors, password: null });
   };
 
   const addressHandler = (e) => {
     setAddress(e.target.value);
-    setErrors({ address: null });
+    setErrors({ ...errors, address: null });
   };
 
   const latitudeHandler = (e) => {
     setLatitude(e.target.value);
-    setErrors({ latitude: null });
+    setErrors({ ...errors, latitude: null });
   };
 
   const longitudeHandler = (e) => {
     setLongitude(e.target.value);
-    setErrors({ longitude: null });
+    setErrors({ ...errors, longitude: null });
   };
 
   //   errors hanldler
   const [errors, setErrors] = useState({});
+  // success
+  const [msg, setMsg] = useState(null);
+
+  const msgHandler = () => {
+    setMsg(null);
+    location.reload();
+  };
 
   // submit handler
   const formData = new FormData();
@@ -81,16 +90,16 @@ export default function AddClinicFrom() {
     formData.append("address", address);
     formData.append("latitude", latitude);
     formData.append("longitude", longitude);
+
     // post data
     console.log(url);
     axios
       .post(url, formData)
       .then((d) => {
-        console.log(d);
+        setMsg(d.data);
       })
       .catch((e) => {
         setErrors(e.response.data);
-        console.log(e.response.data);
       });
   };
   console.log(errors);
@@ -119,14 +128,27 @@ export default function AddClinicFrom() {
         {/* <!--end col--> */}
 
         <div className="col-lg-5 col-md-12 text-lg-end text-center mt-4 mt-lg-0">
-          <button onClick={uploadImg} className="btn btn-primary">
+          <button
+            onClick={uploadImg}
+            type="button"
+            className={`btn btn-primary ${
+              (errors && errors.image && "btn-danger") || ""
+            }`}
+          >
             Upload
           </button>
-          <button onClick={removeImg} className="btn btn-soft-primary ms-2">
+          <button
+            onClick={removeImg}
+            type="button"
+            className="btn btn-soft-primary ms-2"
+          >
             Remove
           </button>
         </div>
-        <div className="">
+        <div className="text-left">
+          {errors && errors.image && (
+            <span className="text-danger d-block">{errors.image.msg}</span>
+          )}
           <input
             ref={imgRef}
             onChange={imgHandler}
@@ -147,12 +169,14 @@ export default function AddClinicFrom() {
               name="name"
               id="name"
               type="text"
-              className={`form-control ${(errors.name && "errors") || ""}`}
+              className={`form-control ${
+                (errors && errors.name && "errors") || ""
+              }`}
               placeholder=" Name :"
               value={name}
               onChange={(e) => nameHandler(e)}
             />
-            {errors.name && (
+            {errors && errors.name && (
               <span className="text-danger">{errors.name.msg}</span>
             )}
           </div>
@@ -165,13 +189,15 @@ export default function AddClinicFrom() {
               name="number"
               id="number"
               type="text"
-              className={`form-control ${(errors.phone && "errors") || ""}`}
+              className={`form-control ${
+                (errors && errors.phone && "errors") || ""
+              }`}
               placeholder="Phone no. :"
               value={phone}
               onChange={(e) => PhoneHandler(e)}
             />
-            {errors.phone && (
-              <span className="text-danger">{errors.phone.msg}</span>
+            {errors && errors.phone && (
+              <span className="text-danger">{errors && errors.phone.msg}</span>
             )}
           </div>
         </div>
@@ -183,13 +209,15 @@ export default function AddClinicFrom() {
               name="email"
               id="email"
               type="email"
-              className={`form-control ${(errors.email && "errors") || ""}`}
+              className={`form-control ${
+                (errors && errors.email && "errors") || ""
+              }`}
               placeholder="Your email :"
               value={email}
               onChange={(e) => emailHandler(e)}
             />
-            {errors.email && (
-              <span className="text-danger">{errors.email.msg}</span>
+            {errors && errors.email && (
+              <span className="text-danger">{errors && errors.email.msg}</span>
             )}
           </div>
         </div>
@@ -202,13 +230,17 @@ export default function AddClinicFrom() {
               name="password"
               id="password"
               type="password"
-              className={`form-control ${(errors.password && "errors") || ""}`}
+              className={`form-control ${
+                (errors && errors.password && "errors") || ""
+              }`}
               placeholder="Password :"
               value={password}
               onChange={(e) => passwordHandler(e)}
             />
-            {errors.password && (
-              <span className="text-danger">{errors.password.msg}</span>
+            {errors && errors.password && (
+              <span className="text-danger">
+                {errors && errors.password.msg}
+              </span>
             )}
           </div>
         </div>
@@ -221,12 +253,14 @@ export default function AddClinicFrom() {
               name="address"
               id="address"
               type="text"
-              className={`form-control ${(errors.address && "errors") || ""}`}
+              className={`form-control ${
+                (errors && errors.address && "errors") || ""
+              }`}
               placeholder="Address :"
               value={address}
               onChange={(e) => addressHandler(e)}
             />
-            {errors.address && (
+            {errors && errors.address && (
               <span className="text-danger">{errors.address.msg}</span>
             )}
           </div>
@@ -240,12 +274,14 @@ export default function AddClinicFrom() {
               name="Latitude"
               id="Latitude"
               type="text"
-              className={`form-control ${(errors.latitude && "errors") || ""}`}
+              className={`form-control ${
+                (errors && errors.latitude && "errors") || ""
+              }`}
               placeholder="Latitude :"
               value={latitude}
               onChange={(e) => latitudeHandler(e)}
             />
-            {errors.latitude && (
+            {errors && errors.latitude && (
               <span className="text-danger">{errors.latitude.msg}</span>
             )}
           </div>
@@ -259,12 +295,14 @@ export default function AddClinicFrom() {
               name="longitude"
               id="longitude"
               type="text"
-              className={`form-control ${(errors.longitude && "errors") || ""}`}
+              className={`form-control ${
+                (errors && errors.longitude && "errors") || ""
+              }`}
               placeholder="longitude :"
               value={longitude}
               onChange={(e) => longitudeHandler(e)}
             />
-            {errors.longitude && (
+            {errors && errors.longitude && (
               <span className="text-danger">{errors.longitude.msg}</span>
             )}
           </div>
@@ -276,6 +314,7 @@ export default function AddClinicFrom() {
       <button type="submit" className="btn btn-primary">
         Add Clinic
       </button>
+      {msg && <OkMessage msg={msg} handler={msgHandler} />}
     </form>
   );
 }
