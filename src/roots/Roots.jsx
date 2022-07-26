@@ -7,9 +7,9 @@ import AdminAddPatient from "../pages/admin/AdminAddPatient";
 import AdminAppointment from "../pages/admin/AdminAppointment";
 import AdminBlogDetail from "../pages/admin/AdminBlogDetail";
 import AdminBlogs from "../pages/admin/AdminBlogs";
+import AdminClinics from "../pages/admin/AdminClinincs";
 import AdminDashboard from "../pages/admin/AdminDashboard";
 import AdminDoctroProfile from "../pages/admin/AdminDoctorProfile";
-import AdminDoctors from "../pages/admin/AdminDoctors";
 import AdminPatients from "../pages/admin/AdminPatients";
 import DoctorAppointment from "../pages/doctor/DoctorAppointment";
 import DoctorDashboard from "../pages/doctor/DoctorDashboard";
@@ -97,7 +97,7 @@ export default function Roots() {
           }
         />
         <Route path="appointment" element={<AdminAppointment />} />
-        <Route path="clinic" element={<AdminDoctors />} />
+        <Route path="clinic" element={<AdminClinics />} />
         <Route path="add-clinic" element={<AdminAddClinic />} />
         <Route path="dr-profile" element={<AdminDoctroProfile />} />
         <Route path="patients" element={<AdminPatients />} />

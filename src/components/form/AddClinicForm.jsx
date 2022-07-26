@@ -102,7 +102,6 @@ export default function AddClinicFrom() {
         setErrors(e.response.data);
       });
   };
-  console.log(errors);
 
   return (
     <form className="mt-4" onSubmit={(e) => submitHandler(e)}>
