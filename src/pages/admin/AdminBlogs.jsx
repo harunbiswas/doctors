@@ -1,10 +1,14 @@
-import { useState } from "react";
+import axios from "axios";
+import { useEffect, useState } from "react";
 import AdminAddBlog from "../../components/admin/blog/AdminAddBlog";
+import Pagination from "../../components/basic/Pagination";
 import Blog from "../../components/blogs/Blog";
+import Values from "../../Values";
 
 export default function AdminBlogs() {
-  const [blogs, setBlogs] = useState([1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]);
+  const [blogs, setBlogs] = useState([]);
   const [isAddBlog, setIsAddBlog] = useState(false);
+  const [page, setPage] = useState(1);
 
   const isBlogShowHandler = () => {
     setIsAddBlog(true);
@@ -12,6 +16,26 @@ export default function AdminBlogs() {
   const isBloghideHandler = () => {
     setIsAddBlog(false);
   };
+
+  // call blogs
+  useEffect(() => {
+    const url = `${Values.BASE_URL}/admin/blogs`;
+    axios
+      .get(url)
+      .then((d) => {
+        setBlogs(d.data);
+      })
+      .catch((e) => {
+        console.log(e.response);
+      });
+  }, []);
+
+  // page related
+  const [pages, setPages] = useState(1);
+  const pageHandler = (e) => {
+    setPages(e);
+  };
+  const perPageNum = 12;
   return (
     <>
       <div className="layout-specing">
@@ -43,51 +67,20 @@ export default function AdminBlogs() {
           </div>
         </div>
         <div className="row">
-          {blogs?.map((blog, i) => (
-            <div key={i} className="col-xl-3 col-lg-4 col-md-6 col-12 mt-4">
-              <Blog />
-            </div>
-          ))}
+          {blogs?.map(
+            (blog, i) =>
+              i + 1 > perPageNum * (pages - 1) &&
+              i < perPageNum * pages && (
+                <div key={i} className="col-xl-3 col-lg-4 col-md-6 col-12 mt-4">
+                  <Blog data={blog} />
+                </div>
+              )
+          )}
         </div>
 
         <div className="row">
           <div className="col-12 mt-4">
-            <ul className="pagination justify-content-end mb-0 list-unstyled">
-              <li className="page-item">
-                <a
-                  className="page-link"
-                  href="javascript:void(0)"
-                  aria-label="Previous"
-                >
-                  Prev
-                </a>
-              </li>
-              <li className="page-item active">
-                <a className="page-link" href="javascript:void(0)">
-                  1
-                </a>
-              </li>
-              <li className="page-item">
-                <a className="page-link" href="javascript:void(0)">
-                  2
-                </a>
-              </li>
-              <li className="page-item">
-                <a className="page-link" href="javascript:void(0)">
-                  3
-                </a>
-              </li>
-              <li className="page-item">
-                <a
-                  className="page-link"
-                  href="javascript:void(0)"
-                  aria-label="Next"
-                >
-                  Next
-                </a>
-              </li>
-            </ul>
-            {/* <!--end pagination--> */}
+            <Pagination data={{ num: blogs.length, handler: pageHandler }} />{" "}
           </div>
           {/* <!--end col--> */}
         </div>

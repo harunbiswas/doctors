@@ -7,9 +7,9 @@ import AdminAddPatient from "../pages/admin/AdminAddPatient";
 import AdminAppointment from "../pages/admin/AdminAppointment";
 import AdminBlogDetail from "../pages/admin/AdminBlogDetail";
 import AdminBlogs from "../pages/admin/AdminBlogs";
+import AdminClinicProfile from "../pages/admin/AdminClinicProfile";
 import AdminClinics from "../pages/admin/AdminClinincs";
 import AdminDashboard from "../pages/admin/AdminDashboard";
-import AdminDoctroProfile from "../pages/admin/AdminDoctorProfile";
 import AdminPatients from "../pages/admin/AdminPatients";
 import DoctorAppointment from "../pages/doctor/DoctorAppointment";
 import DoctorDashboard from "../pages/doctor/DoctorDashboard";
@@ -91,19 +91,75 @@ export default function Roots() {
         <Route
           index
           element={
-            (role && role === "admin" && <AdminDashboardMain />) || (
-              <Navigate to="/login" />
-            )
+            (role && (role === "admin" || role === "editor") && (
+              <AdminDashboardMain />
+            )) || <Navigate to="/login" />
           }
         />
-        <Route path="appointment" element={<AdminAppointment />} />
-        <Route path="clinic" element={<AdminClinics />} />
-        <Route path="add-clinic" element={<AdminAddClinic />} />
-        <Route path="dr-profile" element={<AdminDoctroProfile />} />
-        <Route path="patients" element={<AdminPatients />} />
-        <Route path="add-patient" element={<AdminAddPatient />} />
-        <Route path="blogs" element={<AdminBlogs />} />
-        <Route path="blog-detail" element={<AdminBlogDetail />} />
+        <Route
+          path="appointment"
+          element={
+            (role && (role === "admin" || role === "editor") && (
+              <AdminAppointment />
+            )) || <Navigate to="/login" />
+          }
+        />
+        <Route
+          path="clinic"
+          element={
+            (role && (role === "admin" || role === "editor") && (
+              <AdminClinics />
+            )) || <Navigate to="/login" />
+          }
+        />
+        <Route
+          path="add-clinic"
+          element={
+            (role && (role === "admin" || role === "editor") && (
+              <AdminAddClinic />
+            )) || <Navigate to="/login" />
+          }
+        />
+        <Route
+          path="clinic/:id"
+          element={
+            (role && (role === "admin" || role === "editor") && (
+              <AdminClinicProfile />
+            )) || <Navigate to="/login" />
+          }
+        />
+        <Route
+          path="patients"
+          element={
+            (role && (role === "admin" || role === "editor") && (
+              <AdminPatients />
+            )) || <Navigate to="/login" />
+          }
+        />
+        <Route
+          path="add-patient"
+          element={
+            (role && (role === "admin" || role === "editor") && (
+              <AdminAddPatient />
+            )) || <Navigate to="/login" />
+          }
+        />
+        <Route
+          path="blogs"
+          element={
+            (role && (role === "admin" || role === "editor") && (
+              <AdminBlogs />
+            )) || <Navigate to="/login" />
+          }
+        />
+        <Route
+          path="blog-detail/:id"
+          element={
+            (role && (role === "admin" || role === "editor") && (
+              <AdminBlogDetail />
+            )) || <Navigate to="/login" />
+          }
+        />
       </Route>
 
       <Route

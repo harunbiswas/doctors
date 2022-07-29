@@ -14,7 +14,7 @@ export default function AdminProfile() {
       setIsToggle(true);
     }
   };
-  console.log(isToggle);
+
   return (
     <li className="list-inline-item mb-0 ms-1">
       <div className="dropdown dropdown-primary">

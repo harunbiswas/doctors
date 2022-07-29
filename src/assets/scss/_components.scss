@@ -384,7 +384,7 @@ button:not(:disabled) {
         color: $white;
         background: $primary !important;
         border-color: $primary;
-        cursor: not-allowed;
+        cursor: pointer;
       }
     }
   }

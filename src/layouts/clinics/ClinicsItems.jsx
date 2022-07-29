@@ -1,10 +1,24 @@
-import { useState } from "react";
+import axios from "axios";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import Values from "../../Values";
 
 export default function CLinicItems() {
   const [clinics, setClinics] = useState([
     1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
   ]);
+  useEffect(() => {
+    const url = `${Values.BASE_URL}/clinic`;
+    axios
+      .get(url)
+      .then((d) => {
+        setClinics(d.data);
+        console.log(d.data);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  }, []);
   return (
     <div className="row">
       {clinics?.map((clinic, i) => (
@@ -29,7 +43,7 @@ export default function CLinicItems() {
                 {clinic.address || " collage avinew"}
               </p>
               <p className="text-muted">{clinic.phone || "01770201232"}</p>
-              <Link to="/" className="link">
+              <Link to={`/admin/clinic/${clinic.userId}`} className="link">
                 Read More <i className="ri-arrow-right-line align-middle"></i>
               </Link>
             </div>

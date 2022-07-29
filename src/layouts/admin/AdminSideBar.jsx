@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import logoDark from "../../assets/images/logo-dark.png";
 import logoLight from "../../assets/images/logo-light.png";
 
@@ -60,9 +61,6 @@ export default function AdminSideBar() {
                   <li>
                     <a href="/admin/add-clinic">Add Clinic</a>
                   </li>
-                  <li>
-                    <a href="/admin/clinic-profile">Profile</a>
-                  </li>
                 </ul>
               </div>
             </li>
@@ -107,19 +105,9 @@ export default function AdminSideBar() {
             </li>
 
             <li className="sidebar-dropdown">
-              <a onClick={(e) => submenuHandler(e)} href="javascript:void(0)">
+              <Link to="/admin/blogs">
                 <i className="uil uil-flip-h me-2 d-inline-block"></i>Blogs
-              </a>
-              <div className="sidebar-submenu">
-                <ul>
-                  <li>
-                    <a href="/admin/blogs">Blogs</a>
-                  </li>
-                  <li>
-                    <a href="/admin/blog-detail">Blog Detail</a>
-                  </li>
-                </ul>
-              </div>
+              </Link>
             </li>
 
             <li className="sidebar-dropdown">
