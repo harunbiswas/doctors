@@ -10,7 +10,10 @@ import AdminBlogs from "../pages/admin/AdminBlogs";
 import AdminClinicProfile from "../pages/admin/AdminClinicProfile";
 import AdminClinics from "../pages/admin/AdminClinincs";
 import AdminDashboard from "../pages/admin/AdminDashboard";
+import AdminDoctors from "../pages/admin/AdminDoctors";
 import AdminPatients from "../pages/admin/AdminPatients";
+import ClinicDashboard from "../pages/clinic/ClinicDashboar";
+import ClinicDashboardMain from "../pages/clinic/ClinicDashboardMain";
 import DoctorAppointment from "../pages/doctor/DoctorAppointment";
 import DoctorDashboard from "../pages/doctor/DoctorDashboard";
 import DoctorPatientReviews from "../pages/doctor/DoctorPatientReviews";
@@ -37,20 +40,30 @@ import Login from "../pages/Login";
 import Singup from "../pages/Singup";
 
 export default function Roots() {
-  const [role, setRole] = useState(null);
+  const [role, setRole] = useState(
+    localStorage.getItem("login") &&
+      JSON.parse(localStorage.getItem("login")).value.loginData.role
+  );
   useEffect(() => {
     if (localStorage.getItem("login")) {
       setRole(JSON.parse(localStorage.getItem("login")).value.loginData.role);
     }
   }, []);
-
+  console.log(role);
   return (
     <Routes>
       <Route
-        exact
-        path="/"
-        element={(role === "admin" && <Navigate to="admin" />) || <Home />}
-      >
+        path="/dashboard"
+        element={
+          (role && (role === "admin" || role === "editor") && (
+            <Navigate to="/admin" />
+          )) ||
+          (role === "clinic" && <Navigate to="/clinic-dashboard" />) || (
+            <Navigate to="/login" />
+          )
+        }
+      />
+      <Route exact path="/" element={<Home />}>
         <Route exact path="about" element={<About />} />
         <Route exact path="blogs" element={<Blogs />} />
         <Route path="blog-detail/:id" element={<BlogDetails />} />
@@ -162,10 +175,42 @@ export default function Roots() {
         />
       </Route>
 
+      {/* clinic dashboard  */}
+      <Route exact path="/clinic-dashboard" element={<ClinicDashboard />}>
+        <Route
+          index
+          element={
+            (role && role === "clinic" && <ClinicDashboardMain />) || (
+              <Navigate to="/login" />
+            )
+          }
+        />
+        <Route
+          exact
+          path="doctors"
+          element={
+            (role && role === "clinic" && <AdminDoctors />) || (
+              <Navigate to="/login" />
+            )
+          }
+        />
+        <Route
+          exact
+          path="add-doctor"
+          element={
+            (role && role === "clinic" && <AdminDoctors />) || (
+              <Navigate to="/login" />
+            )
+          }
+        />
+      </Route>
+
       <Route
         path="login"
         element={
-          (!localStorage.getItem("login") && <Login />) || <Navigate to="/" />
+          (!localStorage.getItem("login") && <Login />) || (
+            <Navigate to="/dashboard" />
+          )
         }
       />
       <Route path="singup" element={<Singup />} />

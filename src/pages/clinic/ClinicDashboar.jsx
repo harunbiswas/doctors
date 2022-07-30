@@ -5,7 +5,7 @@ import AdminSideBar from "../../layouts/admin/AdminSideBar";
 import AdminTopHeader from "../../layouts/admin/AdminTopHeader";
 import FooterOne from "../../layouts/footers/FooterOne";
 
-export default function AdminDashboard() {
+export default function ClinicDashboard() {
   const [sideToggle, setSideToggle] = useState(true);
   const sideToggleHandler = () => {
     if (sideToggle) {
@@ -14,6 +14,7 @@ export default function AdminDashboard() {
       setSideToggle(true);
     }
   };
+
   return (
     <div className="admin-dashboard">
       <div
@@ -21,7 +22,7 @@ export default function AdminDashboard() {
           (sideToggle && "toggled") || ""
         } `}
       >
-        <AdminSideBar data={data.adminMenuData} toggled />
+        <AdminSideBar data={data.clinicMenuData} toggled />
 
         {/* <!-- Start Page Content --> */}
         <main className="page-content bg-light">
