@@ -1,9 +1,29 @@
 import axios from "axios";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Values from "../../Values";
 import OkMessage from "../basic/OkMessage";
 
-export default function AddClinicFrom() {
+export default function AddDoctorFrom() {
+  // departments
+  const [departments, setDepartments] = useState([]);
+
+  useEffect(() => {
+    const url = `${Values.BASE_URL}/clinic/departments`;
+    const config = {
+      headers: {
+        token: JSON.parse(localStorage.getItem("login")).value.token,
+      },
+    };
+    axios
+      .get(url, config)
+      .then((d) => {
+        setDepartments(d.data);
+      })
+      .catch((e) => {
+        console.log(e.response);
+      });
+  }, []);
+
   const [imgUrl, setImgUrl] = useState(null);
   const [file, setFile] = useState({});
   const imgRef = useRef();
@@ -23,18 +43,23 @@ export default function AddClinicFrom() {
   };
 
   // form controler
-  const [name, setName] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [address, setAddress] = useState("");
-  const [latitude, setLatitude] = useState("");
-  const [longitude, setLongitude] = useState("");
+  const [gender, setGender] = useState("male");
+  const [departmentId, setDepartmentId] = useState("");
 
   // handler
-  const nameHandler = (e) => {
-    setName(e.target.value);
-    setErrors({ ...errors, name: "" });
+  const firstNameHandler = (e) => {
+    setFirstName(e.target.value);
+    setErrors({ ...errors, firstName: "" });
+  };
+
+  const lastNameHandler = (e) => {
+    setLastName(e.target.value);
+    setErrors({ ...errors, lastName: "" });
   };
 
   const PhoneHandler = (e) => {
@@ -52,19 +77,14 @@ export default function AddClinicFrom() {
     setErrors({ ...errors, password: null });
   };
 
-  const addressHandler = (e) => {
-    setAddress(e.target.value);
-    setErrors({ ...errors, address: null });
+  const genderHandler = (e) => {
+    setGender(e.target.value);
+    setErrors({ ...errors, gender: null });
   };
 
-  const latitudeHandler = (e) => {
-    setLatitude(e.target.value);
-    setErrors({ ...errors, latitude: null });
-  };
-
-  const longitudeHandler = (e) => {
-    setLongitude(e.target.value);
-    setErrors({ ...errors, longitude: null });
+  const departmentHandler = (e) => {
+    setDepartmentId(e.target.value);
+    setErrors({ ...errors, departmentId: null });
   };
 
   //   errors hanldler
@@ -81,19 +101,19 @@ export default function AddClinicFrom() {
   const formData = new FormData();
   const submitHandler = (e) => {
     e.preventDefault();
-    const url = `${Values.BASE_URL}/clinic/signup`;
+    const url = `${Values.BASE_URL}/clinic/doctor`;
     formData.append("files", file);
-    formData.append("name", name);
+    formData.append("firstName", firstName);
+    formData.append("lastName", lastName);
     formData.append("phone", phone);
     formData.append("email", email);
     formData.append("password", password);
-    formData.append("address", address);
-    formData.append("latitude", latitude);
-    formData.append("longitude", longitude);
+    formData.append("gender", gender);
+    formData.append("departmentID", departmentId);
 
     // post data
     axios
-      .post(url, formData)
+      .post(url, formData, Values.consfig)
       .then((d) => {
         setMsg(d.data);
       })
@@ -162,43 +182,45 @@ export default function AddClinicFrom() {
       <div className="row">
         <div className="col-md-6">
           <div className="mb-3">
-            <label className="form-label">Name</label>
+            <label className="form-label">First Name</label>
             <input
-              name="name"
-              id="name"
+              name="firstName"
+              id="firstName"
               type="text"
               className={`form-control ${
-                (errors && errors.name && "errors") || ""
+                (errors && errors.firstName && "errors") || ""
               }`}
-              placeholder=" Name :"
-              value={name}
-              onChange={(e) => nameHandler(e)}
+              placeholder="First Name :"
+              value={firstName}
+              onChange={(e) => firstNameHandler(e)}
             />
-            {errors && errors.name && (
-              <span className="text-danger">{errors.name.msg}</span>
+            {errors && errors.firstName && (
+              <span className="text-danger">{errors.firstName.msg}</span>
             )}
           </div>
         </div>
         {/* <!--end col--> */}
+
         <div className="col-md-6">
           <div className="mb-3">
-            <label className="form-label">Phone no.</label>
+            <label className="form-label">Last Name </label>
             <input
-              name="number"
-              id="number"
+              name="lastName"
+              id="lastName"
               type="text"
               className={`form-control ${
-                (errors && errors.phone && "errors") || ""
+                (errors && errors.lastName && "errors") || ""
               }`}
-              placeholder="Phone no. :"
-              value={phone}
-              onChange={(e) => PhoneHandler(e)}
+              placeholder="Last Name :"
+              value={lastName}
+              onChange={(e) => lastNameHandler(e)}
             />
-            {errors && errors.phone && (
-              <span className="text-danger">{errors && errors.phone.msg}</span>
+            {errors && errors.lastName && (
+              <span className="text-danger">{errors.lastName.msg}</span>
             )}
           </div>
         </div>
+        {/* <!--end col--> */}
 
         <div className="col-md-6">
           <div className="mb-3">
@@ -244,20 +266,41 @@ export default function AddClinicFrom() {
         </div>
         {/* <!--end col--> */}
 
-        <div className="col-md-12">
+        <div className="col-md-6">
           <div className="mb-3">
-            <label className="form-label">Address</label>
+            <label className="form-label">Phone no.</label>
             <input
-              name="address"
-              id="address"
+              name="number"
+              id="number"
               type="text"
+              className={`form-control ${
+                (errors && errors.phone && "errors") || ""
+              }`}
+              placeholder="Phone no. :"
+              value={phone}
+              onChange={(e) => PhoneHandler(e)}
+            />
+            {errors && errors.phone && (
+              <span className="text-danger">{errors && errors.phone.msg}</span>
+            )}
+          </div>
+        </div>
+
+        <div className="col-md-6">
+          <div className="mb-3">
+            <label className="form-label">Gender </label>
+            <select
+              name="gender"
+              id="gender"
               className={`form-control ${
                 (errors && errors.address && "errors") || ""
               }`}
-              placeholder="Address :"
-              value={address}
-              onChange={(e) => addressHandler(e)}
-            />
+              value={gender}
+              onChange={(e) => genderHandler(e)}
+            >
+              <option value="male">Male</option>
+              <option value="female">Female</option>
+            </select>
             {errors && errors.address && (
               <span className="text-danger">{errors.address.msg}</span>
             )}
@@ -267,41 +310,26 @@ export default function AddClinicFrom() {
 
         <div className="col-md-6">
           <div className="mb-3">
-            <label className="form-label">Latitude</label>
-            <input
-              name="Latitude"
-              id="Latitude"
-              type="text"
+            <label className="form-label">Departments </label>
+            <select
+              name="departments"
+              id="departments"
               className={`form-control ${
-                (errors && errors.latitude && "errors") || ""
+                (errors && errors.departmentID && "errors") || ""
               }`}
-              placeholder="Latitude :"
-              value={latitude}
-              onChange={(e) => latitudeHandler(e)}
-            />
-            {errors && errors.latitude && (
-              <span className="text-danger">{errors.latitude.msg}</span>
-            )}
-          </div>
-        </div>
-        {/* <!--end col--> */}
-
-        <div className="col-md-6">
-          <div className="mb-3">
-            <label className="form-label">longitude</label>
-            <input
-              name="longitude"
-              id="longitude"
-              type="text"
-              className={`form-control ${
-                (errors && errors.longitude && "errors") || ""
-              }`}
-              placeholder="longitude :"
-              value={longitude}
-              onChange={(e) => longitudeHandler(e)}
-            />
-            {errors && errors.longitude && (
-              <span className="text-danger">{errors.longitude.msg}</span>
+              value={departmentId}
+              onChange={(e) => departmentHandler(e)}
+            >
+              <option value={null}>Department</option>
+              {departments.length > 0 &&
+                departments.map((data, i) => (
+                  <option key={i} value={data.id}>
+                    {data.title}
+                  </option>
+                ))}
+            </select>
+            {errors && errors.departmentID && (
+              <span className="text-danger">{errors.departmentID.msg}</span>
             )}
           </div>
         </div>
@@ -310,7 +338,7 @@ export default function AddClinicFrom() {
       {/* <!--end row--> */}
 
       <button type="submit" className="btn btn-primary">
-        Add Clinic
+        Add Doctor
       </button>
       {msg && <OkMessage msg={msg} handler={msgHandler} />}
     </form>

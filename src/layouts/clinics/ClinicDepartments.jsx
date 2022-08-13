@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Slider from "react-slick";
 
-export default function DoctorDepartments(data) {
+export default function ClinicDepartments(data) {
   const settings = {
     dots: true,
     infinite: true,

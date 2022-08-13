@@ -1,8 +1,23 @@
-import { useState } from "react";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import DoctorCardTwo from "../../components/doctor/DoctorCardTwo";
+import Values from "../../Values";
 
 export default function AdminDoctors() {
-  const [items, setItems] = useState([1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 11]);
+  const [items, setItems] = useState([]);
+
+  useEffect(() => {
+    const url = `${Values.BASE_URL}/clinic/doctors`;
+    axios
+      .get(url, Values.consfig)
+      .then((d) => {
+        setItems(d.data);
+      })
+      .catch((e) => {
+        console.log(e.response);
+      });
+  }, []);
   return (
     <>
       <div className="layout-specing">
@@ -13,7 +28,7 @@ export default function AdminDoctors() {
             <nav aria-label="breadcrumb" className="d-inline-block mt-2">
               <ul className="breadcrumb breadcrumb-muted bg-transparent rounded mb-0 p-0">
                 <li className="breadcrumb-item">
-                  <a href="index.html">Doctris</a>
+                  <Link to="/dashboard">Dashboard</Link>
                 </li>
                 <li className="breadcrumb-item active" aria-current="page">
                   Doctors
@@ -24,9 +39,9 @@ export default function AdminDoctors() {
           {/* <!--end col--> */}
 
           <div className="col-xl-3 col-md-6 mt-4 mt-md-0 text-md-end">
-            <a href="add-doctor.html" className="btn btn-primary">
+            <Link to="/clinic-dashboard/add-doctor" className="btn btn-primary">
               Add New Doctor
-            </a>
+            </Link>
           </div>
           {/* <!--end col--> */}
         </div>
@@ -35,7 +50,7 @@ export default function AdminDoctors() {
         <div className="row row-cols-md-2 row-cols-lg-5">
           {items?.map((item, i) => (
             <div key={i} className="col mt-4">
-              <DoctorCardTwo />
+              <DoctorCardTwo data={item} />
             </div>
           ))}
         </div>

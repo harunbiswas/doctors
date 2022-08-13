@@ -80,7 +80,9 @@ export default function AdminBlogs() {
 
         <div className="row">
           <div className="col-12 mt-4">
-            <Pagination data={{ num: blogs.length, handler: pageHandler }} />{" "}
+            <Pagination
+              data={{ num: blogs.length, handler: pageHandler, perPageNum }}
+            />{" "}
           </div>
           {/* <!--end col--> */}
         </div>

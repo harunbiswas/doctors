@@ -4,6 +4,10 @@
 .team {
   transition: all 0.5s;
   .team-img {
+    img {
+      min-height: 200px;
+    }
+
     .team-social {
       position: absolute;
       bottom: 10px;

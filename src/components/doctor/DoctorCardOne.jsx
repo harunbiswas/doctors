@@ -19,7 +19,11 @@ export default function DoctorCardOne({ data }) {
     <>
       <div className="card team border-0 rounded shadow overflow-hidden">
         <div className="team-person position-relative overflow-hidden">
-          <img src={data.image && data.image} className="img-fluid" alt="" />
+          <img
+            src={data && data.image && data.image}
+            className="img-fluid"
+            alt=""
+          />
           <ul className="list-unstyled team-like">
             <li>
               <a
@@ -35,13 +39,13 @@ export default function DoctorCardOne({ data }) {
         </div>
         <div className="card-body">
           <Link
-            to={`admin/doctor/${data.id}`}
+            to={`admin/doctor/${data && data.id}`}
             className="title text-dark h5 d-block mb-0"
           >
-            {data.firstName}
+            {data && data.firstName}
           </Link>
           <small className="text-muted speciality">
-            {data.title && data.title}
+            {data && data.title && data.title}
           </small>
           <div className="d-flex justify-content-between align-items-center mt-2">
             <ul className="list-unstyled mb-0">
@@ -57,13 +61,13 @@ export default function DoctorCardOne({ data }) {
             <li className="d-flex mt-2">
               <i className="ri-time-line text-primary align-middle"></i>
               <small className="text-muted ms-2">
-                {data.time && data.time}
+                {data && data.time && data.time}
               </small>
             </li>
             <li className="d-flex mt-2">
               <i className="ri-money-dollar-circle-line text-primary align-middle"></i>
               <small className="text-muted ms-2">
-                $ {data.fee || "00"} USD / Visit
+                $ {(data && data.fee) || "00"} USD / Visit
               </small>
             </li>
           </ul>
@@ -71,7 +75,7 @@ export default function DoctorCardOne({ data }) {
             <li className="list-inline-item mx-1">
               <a
                 target="blanck"
-                href={`https://facebook.com/${data.facebook}`}
+                href={`https://facebook.com/${data && data.facebook}`}
                 className="btn btn-icon btn-pills btn-soft-primary"
               >
                 <i data-feather="facebook" className="icons">
@@ -82,7 +86,7 @@ export default function DoctorCardOne({ data }) {
             <li className="mt-2 list-inline-item mx-1">
               <a
                 target="blanck"
-                href={`https://linkedin.com/${data.linkedin}`}
+                href={`https://linkedin.com/${data && data.linkedin}`}
                 className="btn btn-icon btn-pills btn-soft-primary"
               >
                 <i data-feather="linkedin" className="icons">
@@ -93,7 +97,7 @@ export default function DoctorCardOne({ data }) {
             <li className="mt-2 list-inline-item mx-1">
               <a
                 target="blanck"
-                href={`https://instagram.com/${data.instagram}`}
+                href={`https://instagram.com/${data && data.instagram}`}
                 className="btn btn-icon btn-pills btn-soft-primary"
               >
                 <i data-feather="github" className="icons">
@@ -104,7 +108,7 @@ export default function DoctorCardOne({ data }) {
             <li className="mt-2 list-inline-item mx-1">
               <a
                 target="blanck"
-                href={`https://twitter.com/${data.twitter}`}
+                href={`https://twitter.com/${data && data.twitter}`}
                 className="btn btn-icon btn-pills btn-soft-primary"
               >
                 <i data-feather="twitter" className="icons">

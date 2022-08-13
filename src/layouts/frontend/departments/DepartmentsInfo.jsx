@@ -1,7 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-export default function DepartmentsInfo() {
-  const [services, setServices] = useState([1, 1, 1, 1, 1, 1, 1, 1]);
+export default function DepartmentsInfo({ data }) {
+  const [services, setServices] = useState(data);
+  useEffect(() => {
+    setServices(data);
+  }, [data]);
   return (
     <>
       <div className="row">
@@ -13,15 +16,9 @@ export default function DepartmentsInfo() {
               </div>
               <div className="card-body p-0 mt-3">
                 <a href="departments.html" className="title text-dark h5">
-                  Eye Care
+                  {service.title}
                 </a>
-                <p className="text-muted mt-3">
-                  There is now an abundance of readable dummy texts required
-                  purely to fill a space.
-                </p>
-                <a href="departments.html" className="link">
-                  Read More <i className="ri-arrow-right-line align-middle"></i>
-                </a>
+                <p className="text-muted mt-3">{service.discription}</p>
               </div>
             </div>
           </div>

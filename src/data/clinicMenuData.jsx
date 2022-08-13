@@ -8,7 +8,15 @@ const data = {
     {
       title: "Appointment",
       icon: "uil-stethoscope",
-      link: "/clinic-dashboard/appointemt",
+      link: "/clinic-dashboard/appointment",
+    },
+    {
+      title: "Departments",
+      icon: "uil-cube ",
+      subMenu: [
+        { title: "Departments", link: "/clinic-dashboard/departments" },
+        { title: "add-department", link: "/clinic-dashboard/add-department" },
+      ],
     },
     {
       title: "Doctors",
@@ -42,7 +50,7 @@ const data = {
     {
       title: "Appointment",
       icon: "uil-stethoscope",
-      link: "/admin/appointemt",
+      link: "/admin/appointment",
     },
     {
       title: "Clinic",

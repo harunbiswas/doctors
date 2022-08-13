@@ -20,7 +20,15 @@ export default function Blog({ data }) {
             )}
           </ul>
           <Link
-            to={`/admin/blog-detail/${data && data.id}`}
+            to={`/${
+              (localStorage.getItem("login") &&
+                JSON.parse(localStorage.getItem("login")).value.loginData
+                  .role === "admin") ||
+              (JSON.parse(localStorage.getItem("login")).value.loginData
+                .role === "editor" &&
+                "admin/") ||
+              ""
+            }blog-detail/${data && data.id}`}
             className="text-dark title h5"
           >
             {data && data.title}

@@ -39,7 +39,7 @@ export default function AdminClinicProfile() {
   const [data, setData] = useState({});
 
   useEffect(() => {
-    const url = `${Values.BASE_URL}/clinic/${id}`;
+    const url = `${Values.BASE_URL}/clinic/list/${id}`;
     axios
       .get(url)
       .then((d) => {

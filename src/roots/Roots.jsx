@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 import AdminDashboardMain from "../layouts/admin/AdminDashboardMain";
 import DoctorDashboardMain from "../layouts/doctor-dashboard/DoctorDashboardMain";
@@ -10,10 +10,15 @@ import AdminBlogs from "../pages/admin/AdminBlogs";
 import AdminClinicProfile from "../pages/admin/AdminClinicProfile";
 import AdminClinics from "../pages/admin/AdminClinincs";
 import AdminDashboard from "../pages/admin/AdminDashboard";
+import AdminDoctroProfile from "../pages/admin/AdminDoctorProfile";
 import AdminDoctors from "../pages/admin/AdminDoctors";
 import AdminPatients from "../pages/admin/AdminPatients";
+import Appointments from "../pages/admin/Appointments";
+import AddDepartment from "../pages/clinic/AddDepartment";
+import ClinicAddDoctor from "../pages/clinic/ClinicAddDoctor";
 import ClinicDashboard from "../pages/clinic/ClinicDashboar";
 import ClinicDashboardMain from "../pages/clinic/ClinicDashboardMain";
+import ClinicDepartmentsMain from "../pages/clinic/ClinicDeparmentsMain";
 import DoctorAppointment from "../pages/doctor/DoctorAppointment";
 import DoctorDashboard from "../pages/doctor/DoctorDashboard";
 import DoctorPatientReviews from "../pages/doctor/DoctorPatientReviews";
@@ -23,7 +28,6 @@ import DoctorProfileSettings from "../pages/doctor/DoctorProfileSettings";
 import DoctorSchedule from "../pages/doctor/DoctorSchedule";
 import Invoices from "../pages/doctor/Invoices";
 import About from "../pages/frontend/About";
-import BlogDetails from "../pages/frontend/BlogDetails";
 import Blogs from "../pages/frontend/Blogs";
 import BookingAppointment from "../pages/frontend/BookingAppointment";
 import Contact from "../pages/frontend/Contact";
@@ -31,25 +35,24 @@ import Departments from "../pages/frontend/Departments";
 import Doctors from "../pages/frontend/Doctors";
 import Error from "../pages/frontend/Error";
 import Faqs from "../pages/frontend/Faqs";
+import FrontendLayout from "../pages/frontend/FrontendLayout";
 import Home from "../pages/frontend/Home";
 import PatientDashboard from "../pages/frontend/PatientDashboard";
 import PatientInvoce from "../pages/frontend/PatientInvoice";
 import PrivacyPolicy from "../pages/frontend/PrivacyPolicy";
 import Terms from "../pages/frontend/Terms";
 import Login from "../pages/Login";
+import PatientAppointment from "../pages/patient/PatientAppointment";
+import PatientDashboardHome from "../pages/patient/PatientDashboardHome";
 import Singup from "../pages/Singup";
 
 export default function Roots() {
   const [role, setRole] = useState(
-    localStorage.getItem("login") &&
-      JSON.parse(localStorage.getItem("login")).value.loginData.role
+    (localStorage.getItem("login") &&
+      JSON.parse(localStorage.getItem("login")).value.loginData.role) ||
+      ""
   );
-  useEffect(() => {
-    if (localStorage.getItem("login")) {
-      setRole(JSON.parse(localStorage.getItem("login")).value.loginData.role);
-    }
-  }, []);
-  console.log(role);
+
   return (
     <Routes>
       <Route
@@ -58,15 +61,19 @@ export default function Roots() {
           (role && (role === "admin" || role === "editor") && (
             <Navigate to="/admin" />
           )) ||
-          (role === "clinic" && <Navigate to="/clinic-dashboard" />) || (
+          (role === "clinic" && <Navigate to="/clinic-dashboard" />) ||
+          (role === "patient" && <Navigate to="/patient-dashboard" />) || (
             <Navigate to="/login" />
           )
         }
       />
-      <Route exact path="/" element={<Home />}>
+
+      {/* home page  */}
+      <Route path="/" element={<FrontendLayout />}>
+        <Route index element={<Home />} />
         <Route exact path="about" element={<About />} />
         <Route exact path="blogs" element={<Blogs />} />
-        <Route path="blog-detail/:id" element={<BlogDetails />} />
+        <Route path="blog-detail/:id" element={<AdminBlogDetail />} />
         <Route
           exact
           path="booking-appointment"
@@ -79,6 +86,7 @@ export default function Roots() {
         <Route exact path="terms" element={<Terms />} />
         <Route exact path="doctors" element={<Doctors />} />
       </Route>
+
       <Route exact path="doctor-dashboard" element={<DoctorDashboard />}>
         <Route index element={<DoctorDashboardMain />} />
         <Route
@@ -187,6 +195,24 @@ export default function Roots() {
         />
         <Route
           exact
+          path="departments"
+          element={
+            (role && role === "clinic" && <ClinicDepartmentsMain />) || (
+              <Navigate to="/login" />
+            )
+          }
+        />
+        <Route
+          exact
+          path="add-department"
+          element={
+            (role && role === "clinic" && <AddDepartment />) || (
+              <Navigate to="/login" />
+            )
+          }
+        />
+        <Route
+          exact
           path="doctors"
           element={
             (role && role === "clinic" && <AdminDoctors />) || (
@@ -198,7 +224,46 @@ export default function Roots() {
           exact
           path="add-doctor"
           element={
-            (role && role === "clinic" && <AdminDoctors />) || (
+            (role && role === "clinic" && <ClinicAddDoctor />) || (
+              <Navigate to="/login" />
+            )
+          }
+        />
+        <Route
+          exact
+          path="doctor/:id"
+          element={
+            (role && role === "clinic" && <AdminDoctroProfile />) || (
+              <Navigate to="/login" />
+            )
+          }
+        />
+
+        <Route
+          exact
+          path="appointment"
+          element={
+            (role && role === "clinic" && <Appointments />) || (
+              <Navigate to="/login" />
+            )
+          }
+        />
+      </Route>
+
+      {/* // patient dashboard  */}
+      <Route exact path="/patient-dashboard" element={<PatientDashboard />}>
+        <Route
+          index
+          element={
+            (role && role === "patient" && <PatientDashboardHome />) || (
+              <Navigate to="/login" />
+            )
+          }
+        />
+        <Route
+          path="booking-appointment"
+          element={
+            (role && role === "patient" && <PatientAppointment />) || (
               <Navigate to="/login" />
             )
           }
@@ -207,11 +272,7 @@ export default function Roots() {
 
       <Route
         path="login"
-        element={
-          (!localStorage.getItem("login") && <Login />) || (
-            <Navigate to="/dashboard" />
-          )
-        }
+        element={(!role && <Login />) || <Navigate to="/dashboard" />}
       />
       <Route path="singup" element={<Singup />} />
       <Route path="*" element={<Error />} />

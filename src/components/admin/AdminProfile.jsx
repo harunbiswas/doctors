@@ -5,6 +5,10 @@ import LogoutBtn from "../btns/LogoutBtn";
 export default function AdminProfile() {
   const [img, setImg] = useState(null);
   const [isToggle, setIsToggle] = useState(false);
+  const [data, setData] = useState(
+    localStorage.getItem("login") &&
+      JSON.parse(localStorage.getItem("login")).value.loginData
+  );
 
   // handler
   const toggleHandler = () => {
@@ -60,11 +64,13 @@ export default function AdminProfile() {
               alt=""
             />
             <div className="flex-1 ms-2">
-              <span className="d-block mb-1">Calvin Carlo</span>
-              <small className="text-muted">Orthopedic</small>
+              <span className="d-block mb-1">
+                {data && data.firstName + " " + data.lastName}
+              </span>
+              <small className="text-muted">{data && data.role}</small>
             </div>
           </a>
-          <Link to="/" className="dropdown-item text-dark">
+          <Link to="/dashboard" className="dropdown-item text-dark">
             <span className="mb-0 d-inline-block me-1">
               <i className="uil uil-dashboard align-middle h6"></i>
             </span>{" "}

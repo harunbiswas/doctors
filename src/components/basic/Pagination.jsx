@@ -11,12 +11,12 @@ export default function Pagination({ data }) {
   const pageNumNextHandler = () => {
     setPageNum(pageNum + 1);
   };
-  const totalPage = data && data.num && Math.ceil(data.num / 12);
+  const totalPage = data && data.num && Math.ceil(data.num / data.perPageNum);
   const numOfPage = [];
   for (let i = 1; i <= totalPage; i++) {
     numOfPage.push(i);
   }
-  data.handler(pageNum);
+  data && data.handler(pageNum);
 
   return (
     <ul className="pagination justify-content-end mb-0 list-unstyled">
@@ -30,7 +30,10 @@ export default function Pagination({ data }) {
         </a>
       </li>
       {numOfPage.map((item) => (
-        <li key={item} className="page-item active">
+        <li
+          key={item}
+          className={`page-item ${(pageNum === item && "active") || ""}`}
+        >
           <a onClick={(e) => pageNumHandler(item)} className="page-link">
             {item}
           </a>
