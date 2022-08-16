@@ -112,7 +112,7 @@ export default function LoginForm() {
                 </label>
               </div>
             </div>
-            <a href="forgot-password.html" className="text-dark h6 mb-0">
+            <a href="/" className="text-dark h6 mb-0">
               Forgot password ?
             </a>
           </div>
@@ -122,29 +122,6 @@ export default function LoginForm() {
             <button className="btn btn-primary">Sign in</button>
           </div>
         </div>
-
-        <div className="col-lg-12 mt-3 text-center">
-          <h6 className="text-muted">Or</h6>
-        </div>
-        {/* <!--end col--> */}
-
-        <div className="col-6 mt-3">
-          <div className="d-grid">
-            <Link to="/" className="btn btn-soft-primary">
-              <i className="uil uil-facebook"></i> Facebook
-            </Link>
-          </div>
-        </div>
-        {/* <!--end col--> */}
-
-        <div className="col-6 mt-3">
-          <div className="d-grid">
-            <Link to="/" className="btn btn-soft-primary">
-              <i className="uil uil-google"></i> Google
-            </Link>
-          </div>
-        </div>
-        {/* <!--end col--> */}
 
         <div className="col-12 text-center">
           <p className="mb-0 mt-3">

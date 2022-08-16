@@ -17,7 +17,6 @@ export default function AddDepartmentForm() {
       title,
       description,
     };
-    console.log(data);
     axios
       .post(url, data, config)
       .then((d) => {
@@ -25,7 +24,6 @@ export default function AddDepartmentForm() {
       })
       .catch((e) => {
         setErrors(e.response.data);
-        console.log(e.response);
       });
   };
 

@@ -65,7 +65,7 @@ export default function AdminProfile() {
             />
             <div className="flex-1 ms-2">
               <span className="d-block mb-1">
-                {data && data.firstName + " " + data.lastName}
+                {data && data.firstName + " " + (data.lastName || "")}
               </span>
               <small className="text-muted">{data && data.role}</small>
             </div>

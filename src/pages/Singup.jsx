@@ -7,19 +7,19 @@ export default function Singup() {
       <HomeBtn />
 
       {/* <!-- Hero Start --> */}
-      <section class="bg-half-150 d-table w-100 bg-light">
-        <div class="container">
-          <div class="row justify-content-center">
-            <div class="col-lg-5 col-md-8">
+      <section className="bg-half-150 d-table w-100 bg-light">
+        <div className="container">
+          <div className="row justify-content-center">
+            <div className="col-lg-12 col-md-12">
               <img
                 src="../assets/images/logo-dark.png"
                 height="24"
-                class="mx-auto d-block"
+                className="mx-auto d-block"
                 alt=""
               />
-              <div class="card login-page bg-white shadow mt-4 rounded border-0">
-                <div class="card-body">
-                  <h4 class="text-center">Sign Up</h4>
+              <div className="card login-page bg-white shadow mt-4 rounded border-0">
+                <div className="card-body">
+                  <h4 className="text-center">Sign Up</h4>
                   <SingUpFrom />
                 </div>
               </div>
