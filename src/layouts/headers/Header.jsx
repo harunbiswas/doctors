@@ -73,20 +73,23 @@ export default function Header() {
             </div>
           </div>
           {/* <!-- End Mobile Toggle --> */}
-          {(localStorage.getItem("login") && <AdminProfile />) || (
-            <ul className="dropdowns list-inline mb-0 d-flex gap-2">
-              <li className="mt-3 ">
-                <Link to="/login" className="btn btn-primary">
-                  LOGIN
-                </Link>
-              </li>
-              <li className="mt-3 ">
-                <Link to="/singup" className="btn btn-primary">
-                  SINGUP
-                </Link>
-              </li>
-            </ul>
-          )}
+
+          <ul className="dropdowns list-inline mb-0 d-flex gap-2">
+            {(localStorage.getItem("login") && <AdminProfile />) || (
+              <>
+                <li className="mt-3 ">
+                  <Link to="/login" className="btn btn-primary">
+                    LOGIN
+                  </Link>
+                </li>
+                <li className="mt-3 ">
+                  <Link to="/singup" className="btn btn-primary">
+                    SINGUP
+                  </Link>
+                </li>
+              </>
+            )}
+          </ul>
 
           <div id="navigation" className={(isToggle && "d-block") || ""}>
             {/* <!-- Navigation Menu-->    */}

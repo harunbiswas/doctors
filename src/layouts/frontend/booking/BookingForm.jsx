@@ -1,7 +1,70 @@
-import React, { useState } from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import Values from "../../../Values";
 
 export default function BookingForm() {
-  const [startDate, setStartDate] = useState(new Date());
+  // data handler
+  const [clinicId, setClinicId] = useState(null);
+  const [departmentId, setDepartmentId] = useState(null);
+
+  const clinicIdHandler = (e) => {
+    setClinicId(e.target.value);
+  };
+  const departmentHandler = (e) => {
+    setDepartmentId(e.target.value);
+  };
+
+  // console.log(clinicId);
+
+  // get data
+  const [clinics, setClinics] = useState([]);
+  const [deparments, setDepartments] = useState([]);
+  const [doctors, setDoctors] = useState([]);
+
+  useEffect(() => {
+    // clinic handler
+    const clinicURL = `${Values.BASE_URL}/clinic`;
+    axios
+      .get(clinicURL)
+      .then((d) => {
+        setClinics(d.data);
+      })
+      .catch((e) => {
+        console.log(e.response);
+      });
+
+    // deparment handler
+    const departmentURL = `${Values.BASE_URL}/departments`;
+    axios
+      .get(departmentURL, {
+        headers: {
+          clinicId,
+        },
+      })
+      .then((d) => {
+        setDepartments(d.data);
+      })
+      .catch((e) => {
+        console.error(e.response);
+      });
+
+    // doctors handler
+    const doctorURL = `${Values.BASE_URL}/doctors`;
+    axios
+      .get(doctorURL, {
+        headers: {
+          clinicId,
+          departmentId,
+        },
+      })
+      .then((d) => {
+        setDoctors(d.data);
+      })
+      .catch((e) => {
+        console.log(e.response);
+      });
+  }, [clinicId, departmentId]);
+
   return (
     <form>
       <div className="tab-content p-4" id="pills-tabContent">
@@ -15,15 +78,18 @@ export default function BookingForm() {
             <div className="col-md-6">
               <div className="mb-3">
                 <label className="form-label">Clinic</label>
-                <select className="form-control department-name select2input">
-                  <option value="EY">Eye Care</option>
-                  <option value="GY">Gynecologist</option>
-                  <option value="PS">Psychotherapist</option>
-                  <option value="OR">Orthopedic</option>
-                  <option value="DE">Dentist</option>
-                  <option value="GA">Gastrologist</option>
-                  <option value="UR">Urologist</option>
-                  <option value="NE">Neurologist</option>
+                <select
+                  onChange={(e) => clinicIdHandler(e)}
+                  className="form-control department-name select2input"
+                >
+                  <option value={null}>-- select a clinic --</option>
+                  {clinics &&
+                    clinics.length > 0 &&
+                    clinics.map((clinic) => (
+                      <option key={clinic.id} value={clinic.id}>
+                        {clinic.firstName}
+                      </option>
+                    ))}
                 </select>
               </div>
             </div>
@@ -32,15 +98,19 @@ export default function BookingForm() {
             <div className="col-md-6">
               <div className="mb-3">
                 <label className="form-label">Department</label>
-                <select className="form-control department-name select2input">
-                  <option value="EY">Eye Care</option>
-                  <option value="GY">Gynecologist</option>
-                  <option value="PS">Psychotherapist</option>
-                  <option value="OR">Orthopedic</option>
-                  <option value="DE">Dentist</option>
-                  <option value="GA">Gastrologist</option>
-                  <option value="UR">Urologist</option>
-                  <option value="NE">Neurologist</option>
+                <select
+                  onChange={(e) => departmentHandler(e)}
+                  className="form-control department-name select2input"
+                >
+                  <option value={null}>-- select a department --</option>
+
+                  {deparments &&
+                    deparments.length > 0 &&
+                    deparments.map((deparment) => (
+                      <option key={deparment.id} value={deparment.id}>
+                        {deparment.title}
+                      </option>
+                    ))}
                 </select>
               </div>
             </div>
@@ -50,14 +120,14 @@ export default function BookingForm() {
               <div className="mb-3">
                 <label className="form-label">Doctor</label>
                 <select className="form-control doctor-name select2input">
-                  <option value="CA">Dr. Calvin Carlo</option>
-                  <option value="CR">Dr. Cristino Murphy</option>
-                  <option value="AL">Dr. Alia Reddy</option>
-                  <option value="TO">Dr. Toni Kovar</option>
-                  <option value="JE">Dr. Jessica McFarlane</option>
-                  <option value="EL">Dr. Elsie Sherman</option>
-                  <option value="BE">Dr. Bertha Magers</option>
-                  <option value="LO">Dr. Louis Batey</option>
+                  <option value={null}>-- Select doctor --</option>
+                  {doctors &&
+                    doctors.length > 0 &&
+                    doctors.map((doctor) => (
+                      <option key={doctor.id} value={doctor.id}>
+                        {doctor.firstName + " " + doctor.lastName}
+                      </option>
+                    ))}
                 </select>
               </div>
             </div>

@@ -103,10 +103,10 @@ export default function HeaderOne() {
                   Invoice
                 </a>
               </li>{" "}
-              <li className="has-submenu parent-menu-item">
+              <li className="has-submenu parent-menu-item ">
                 <a
                   href="/patient-dashboard/booking-appointment"
-                  className="sub-menu-item"
+                  className="sub-menu-item "
                 >
                   Book Appointment
                 </a>
