@@ -1,7 +1,22 @@
+import axios from "axios";
+import { useEffect, useState } from "react";
 import profileImg from "../../assets/images/doctors/01.jpg";
 import img from "../../assets/images/doctors/profile-bg.jpg";
+import Values from "../../Values";
 
 export default function DoctorDashboardSideBar() {
+  const [data, setData] = useState({});
+  useEffect(() => {
+    const url = `${Values.BASE_URL}/doctor/info`;
+    axios
+      .get(url, Values.consfig)
+      .then((d) => {
+        setData(d.data);
+      })
+      .catch((e) => {
+        console.log(e.response);
+      });
+  }, []);
   return (
     <>
       <div className="rounded shadow overflow-hidden sticky-bar">
@@ -15,8 +30,10 @@ export default function DoctorDashboardSideBar() {
             className="rounded-circle shadow-md avatar avatar-md-md"
             alt=""
           />
-          <h5 className="mt-3 mb-1">Dr. Calvin Carlo</h5>
-          <p className="text-muted mb-0">Orthopedic</p>
+          <h5 className="mt-3 mb-1">
+            Dr. {data.firstName + " " + data.lastName}
+          </h5>
+          <p className="text-muted mb-0">{data.title}</p>
         </div>
 
         <ul className="list-unstyled sidebar-nav mb-0">

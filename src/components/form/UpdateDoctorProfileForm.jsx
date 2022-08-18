@@ -7,7 +7,10 @@ import OkMessage from "../basic/OkMessage";
 export default function UpdateDoctorProfileFrom() {
   // departments
   const [departments, setDepartments] = useState([]);
-  const { id } = useParams();
+  const id =
+    useParams().id ||
+    (localStorage.getItem("login") &&
+      JSON.parse(localStorage.getItem("login")).value.loginData.id);
 
   useEffect(() => {
     const url = `${Values.BASE_URL}/clinic/departments`;

@@ -1,322 +1,159 @@
-import img from "../../assets/images/doctors/01.jpg";
-export default function DoctorProfileSettingsMain() {
+import axios from "axios";
+import { useState } from "react";
+import OkMessage from "../../components/basic/OkMessage";
+import UpdateDoctorProfileFrom from "../../components/form/UpdateDoctorProfileForm";
+import UpdateDoctorProfileGenarale from "../../components/form/UpdateDoctorProfileGenarale";
+import Values from "../../Values";
+
+export default function AdminDoctorProfileSettings() {
+  const id =
+    localStorage.getItem("login") &&
+    JSON.parse(localStorage.getItem("login")).value.loginData.id;
+
+  const [msg, setMsg] = useState("");
+  const msgHandler = () => {
+    setMsg(null);
+  };
+  const deleteDoctor = () => {
+    const url = `${Values.BASE_URL}/clinic/doctor/${id}`;
+    axios
+      .delete(url, Values.consfig)
+      .then((d) => {
+        setMsg(d.data);
+        location.replace("/dashboard");
+      })
+      .catch((e) => {
+        console.log(e.response);
+      });
+  };
   return (
     <>
-      <h5 className="mb-0 pb-2">Schedule Timing</h5>
-      <div className="rounded shadow mt-4">
-        <div className="p-4 border-bottom">
-          <h5 className="mb-0">Personal Information :</h5>
-        </div>
+      <div
+        class="tab-pane fade show active"
+        id="pills-settings"
+        role="tabpanel"
+        aria-labelledby="settings-tab"
+      >
+        {msg && <OkMessage msg={msg} handler={msgHandler} />}
+        <h5 class="mb-1">Settings</h5>
+        <div class="row">
+          <div class="col-lg-6">
+            <div class="rounded shadow mt-4">
+              <div class="p-4 border-bottom">
+                <h6 class="mb-0">Personal Information :</h6>
+              </div>
 
-        <div className="p-4 border-bottom">
-          <div className="row align-items-center">
-            <div className="col-lg-2 col-md-4">
-              <img
-                src={img}
-                className="avatar avatar-md-md rounded-pill shadow mx-auto d-block"
-                alt=""
-              />
+              <div className="p-4">
+                <UpdateDoctorProfileFrom />
+              </div>
             </div>
-            {/* <!--end col--> */}
 
-            <div className="col-lg-5 col-md-8 text-center text-md-start mt-4 mt-sm-0">
-              <h5 className="">Upload your picture</h5>
-              <p className="text-muted mb-0">
-                For best results, use an image at least 256px by 256px in either
-                .jpg or .png format
-              </p>
-            </div>
-            {/* <!--end col--> */}
+            {localStorage.getItem("login") &&
+              JSON.parse(localStorage.getItem("login")).value.loginData.role ===
+                "doctor" && (
+                <div class="rounded shadow mt-4">
+                  <div class="p-4 border-bottom">
+                    <h6 class="mb-0">Account Notifications :</h6>
+                  </div>
 
-            <div className="col-lg-5 col-md-12 text-lg-end text-center mt-4 mt-lg-0">
-              <a href="#" className="btn btn-primary">
-                Upload
-              </a>
-              <a href="#" className="btn btn-soft-primary ms-2">
-                Remove
-              </a>
-            </div>
-            {/* <!--end col--> */}
+                  <div class="p-4">
+                    <form>
+                      <div class="row">
+                        <div class="col-lg-12">
+                          <div class="mb-3">
+                            <label class="form-label">Old password :</label>
+                            <input
+                              type="password"
+                              class="form-control"
+                              placeholder="Old password"
+                              required=""
+                            />
+                          </div>
+                        </div>
+                        {/* <!--end col--> */}
+
+                        <div class="col-lg-12">
+                          <div class="mb-3">
+                            <label class="form-label">New password :</label>
+                            <input
+                              type="password"
+                              class="form-control"
+                              placeholder="New password"
+                              required=""
+                            />
+                          </div>
+                        </div>
+                        {/* <!--end col--> */}
+
+                        <div class="col-lg-12">
+                          <div class="mb-3">
+                            <label class="form-label">
+                              Re-type New password :
+                            </label>
+                            <input
+                              type="password"
+                              class="form-control"
+                              placeholder="Re-type New password"
+                              required=""
+                            />
+                          </div>
+                        </div>
+                        {/* <!--end col--> */}
+
+                        <div class="col-lg-12 mt-2 mb-0">
+                          <button class="btn btn-primary">Save password</button>
+                        </div>
+                        {/* <!--end col--> */}
+                      </div>
+                      {/* <!--end row--> */}
+                    </form>
+                  </div>
+                </div>
+              )}
           </div>
-          {/* <!--end row--> */}
-        </div>
+          {/* <!--end col--> */}
 
-        <div className="p-4">
-          <form>
-            <div className="row">
-              <div className="col-md-6">
-                <div className="mb-3">
-                  <label className="form-label">First Name</label>
-                  <input
-                    name="name"
-                    id="name"
-                    type="text"
-                    className="form-control"
-                    placeholder="First Name :"
-                  />
+          <div class="col-lg-6">
+            <div class="rounded shadow mt-4">
+              <div class="p-4 border-bottom">
+                <h6 class="mb-0">General Notifications :</h6>
+              </div>
+
+              <div class="p-4">
+                <UpdateDoctorProfileGenarale />
+              </div>
+            </div>
+
+            <div class="rounded shadow mt-4">
+              <div class="p-4 border-bottom">
+                <h6 class="mb-0">General Notifications :</h6>
+              </div>
+
+              <div class="p-4">
+                <div class="p-4 border-bottom">
+                  <h5 class="mb-0 text-danger">Delete Account :</h5>
+                </div>
+
+                <div class="p-4">
+                  <h6 class="mb-0 fw-normal">
+                    Do you want to delete the account? Please press below
+                    "Delete" button
+                  </h6>
+                  <div class="mt-4">
+                    <button onClick={deleteDoctor} class="btn btn-danger">
+                      Delete Account
+                    </button>
+                  </div>
+                  {/* <!--end col--> */}
                 </div>
               </div>
-              {/* <!--end col--> */}
-
-              <div className="col-md-6">
-                <div className="mb-3">
-                  <label className="form-label">Last Name</label>
-                  <input
-                    name="name"
-                    id="name2"
-                    type="text"
-                    className="form-control"
-                    placeholder="Last Name :"
-                  />
-                </div>
-              </div>
-              {/* <!--end col--> */}
-
-              <div className="col-md-6">
-                <div className="mb-3">
-                  <label className="form-label">Your Email</label>
-                  <input
-                    name="email"
-                    id="email"
-                    type="email"
-                    className="form-control"
-                    placeholder="Your email :"
-                  />
-                </div>
-              </div>
-              {/* <!--end col--> */}
-
-              <div className="col-md-6">
-                <div className="mb-3">
-                  <label className="form-label">Phone no.</label>
-                  <input
-                    name="number"
-                    id="number"
-                    type="text"
-                    className="form-control"
-                    placeholder="Phone no. :"
-                  />
-                </div>
-              </div>
-              {/* <!--end col--> */}
-
-              <div className="col-md-12">
-                <div className="mb-3">
-                  <label className="form-label">Your Bio Here</label>
-                  <textarea
-                    name="comments"
-                    id="comments"
-                    rows="4"
-                    className="form-control"
-                    placeholder="Bio :"
-                  ></textarea>
-                </div>
-              </div>
             </div>
-            {/* <!--end row--> */}
-
-            <div className="row">
-              <div className="col-sm-12">
-                <input
-                  type="submit"
-                  id="submit"
-                  name="send"
-                  className="btn btn-primary"
-                  value="Save changes"
-                />
-              </div>
-              {/* <!--end col--> */}
-            </div>
-            {/* <!--end row--> */}
-          </form>
-          {/* <!--end form-->  */}
-        </div>
-      </div>
-
-      <div className="rounded shadow mt-4">
-        <div className="p-4 border-bottom">
-          <h5 className="mb-0">Change Password :</h5>
-        </div>
-
-        <div className="p-4">
-          <form>
-            <div className="row">
-              <div className="col-lg-12">
-                <div className="mb-3">
-                  <label className="form-label">Old password :</label>
-                  <input
-                    type="password"
-                    className="form-control"
-                    placeholder="Old password"
-                    required=""
-                  />
-                </div>
-              </div>
-              {/* <!--end col--> */}
-
-              <div className="col-lg-12">
-                <div className="mb-3">
-                  <label className="form-label">New password :</label>
-                  <input
-                    type="password"
-                    className="form-control"
-                    placeholder="New password"
-                    required=""
-                  />
-                </div>
-              </div>
-              {/* <!--end col--> */}
-
-              <div className="col-lg-12">
-                <div className="mb-3">
-                  <label className="form-label">Re-type New password :</label>
-                  <input
-                    type="password"
-                    className="form-control"
-                    placeholder="Re-type New password"
-                    required=""
-                  />
-                </div>
-              </div>
-              {/* <!--end col--> */}
-
-              <div className="col-lg-12 mt-2 mb-0">
-                <button className="btn btn-primary">Save password</button>
-              </div>
-              {/* <!--end col--> */}
-            </div>
-            {/* <!--end row--> */}
-          </form>
-        </div>
-      </div>
-
-      <div className="rounded shadow mt-4">
-        <div className="p-4 border-bottom">
-          <h5 className="mb-0">Account Notifications :</h5>
-        </div>
-
-        <div className="p-4">
-          <div className="d-flex justify-content-between pb-4">
-            <h6 className="mb-0 fw-normal">When someone mentions me</h6>
-            <div className="form-check">
-              <input
-                type="checkbox"
-                className="form-check-input"
-                value=""
-                id="customSwitch1"
-              />
-              <label className="form-check-label" for="customSwitch1"></label>
-            </div>
-          </div>
-          <div className="d-flex justify-content-between py-4 border-top">
-            <h6 className="mb-0 fw-normal">When someone follows me</h6>
-            <div className="form-check">
-              <input
-                type="checkbox"
-                className="form-check-input"
-                id="customSwitch2"
-                checked
-              />
-              <label className="form-check-label" for="customSwitch2"></label>
-            </div>
-          </div>
-          <div className="d-flex justify-content-between py-4 border-top">
-            <h6 className="mb-0 fw-normal">When shares my activity</h6>
-            <div className="form-check">
-              <input
-                type="checkbox"
-                className="form-check-input"
-                id="customSwitch3"
-              />
-              <label className="form-check-label" for="customSwitch3"></label>
-            </div>
-          </div>
-          <div className="d-flex justify-content-between py-4 border-top">
-            <h6 className="mb-0 fw-normal">When someone messages me</h6>
-            <div className="form-check">
-              <input
-                type="checkbox"
-                className="form-check-input"
-                id="customSwitch4"
-                checked
-              />
-              <label className="form-check-label" for="customSwitch4"></label>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div className="rounded shadow mt-4">
-        <div className="p-4 border-bottom">
-          <h5 className="mb-0">Marketing Notifications :</h5>
-        </div>
-
-        <div className="p-4">
-          <div className="d-flex justify-content-between pb-4">
-            <h6 className="mb-0 fw-normal">There is a sale or promotion</h6>
-            <div className="form-check">
-              <input
-                type="checkbox"
-                className="form-check-input"
-                id="customSwitch5"
-                checked
-              />
-              <label className="form-check-label" for="customSwitch5"></label>
-            </div>
-          </div>
-          <div className="d-flex justify-content-between py-4 border-top">
-            <h6 className="mb-0 fw-normal">Company news</h6>
-            <div className="form-check">
-              <input
-                type="checkbox"
-                className="form-check-input"
-                id="customSwitch6"
-              />
-              <label className="form-check-label" for="customSwitch6"></label>
-            </div>
-          </div>
-          <div className="d-flex justify-content-between py-4 border-top">
-            <h6 className="mb-0 fw-normal">Weekly jobs</h6>
-            <div className="form-check">
-              <input
-                type="checkbox"
-                className="form-check-input"
-                id="customSwitch7"
-              />
-              <label className="form-check-label" for="customSwitch7"></label>
-            </div>
-          </div>
-          <div className="d-flex justify-content-between py-4 border-top">
-            <h6 className="mb-0 fw-normal">Unsubscribe News</h6>
-            <div className="form-check">
-              <input
-                type="checkbox"
-                className="form-check-input"
-                id="customSwitch8"
-                checked
-              />
-              <label className="form-check-label" for="customSwitch8"></label>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div className="rounded shadow mt-4">
-        <div className="p-4 border-bottom">
-          <h5 className="mb-0 text-danger">Delete Account :</h5>
-        </div>
-
-        <div className="p-4">
-          <h6 className="mb-0 fw-normal">
-            Do you want to delete the account? Please press below "Delete"
-            button
-          </h6>
-          <div className="mt-4">
-            <button className="btn btn-danger">Delete Account</button>
           </div>
           {/* <!--end col--> */}
         </div>
+        {/* <!--end row--> */}
       </div>
+      {/* <!--end teb pane--> */}
     </>
   );
 }

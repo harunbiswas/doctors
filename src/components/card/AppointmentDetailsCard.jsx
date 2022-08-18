@@ -36,12 +36,14 @@ export default function AppointmentDetailsCard({ data, handler }) {
                     <p className="text-muted ms-2">{data.age} year old</p>
                   </li>
 
-                  <li className="d-flex">
-                    <h6>Doctor:</h6>
-                    <p className="text-muted ms-2">
-                      {data.firstName + " " + data.lastName}
-                    </p>
-                  </li>
+                  {data.firstName && (
+                    <li className="d-flex">
+                      <h6>Doctor:</h6>
+                      <p className="text-muted ms-2">
+                        {data.firstName + " " + data.lastName}
+                      </p>
+                    </li>
+                  )}
 
                   <li className="d-flex">
                     <h6 className="mb-0">Department:</h6>

@@ -50,9 +50,14 @@ export default function UpdateDoctorProfileGenarale() {
   };
 
   //   face data
-  const { id } = useParams();
+  const id =
+    useParams().id ||
+    (localStorage.getItem("login") &&
+      JSON.parse(localStorage.getItem("login")).value.loginData.id);
+
   useEffect(() => {
     const url = `${Values.BASE_URL}/clinic/doctor/${id}`;
+    console.log(url);
     axios
       .get(url)
       .then((d) => {
@@ -80,7 +85,7 @@ export default function UpdateDoctorProfileGenarale() {
       instagram,
       bio,
     };
-    const url = `${Values.BASE_URL}/clinic/doctor/${id}`;
+    const url = `${Values.BASE_URL}/clinic/doctor/${id || userId}`;
     axios
       .put(url, data, Values.consfig)
       .then((d) => setMsg(d.data))

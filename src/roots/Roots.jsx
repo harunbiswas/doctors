@@ -63,6 +63,7 @@ export default function Roots() {
             <Navigate to="/admin" />
           )) ||
           (role === "clinic" && <Navigate to="/clinic-dashboard" />) ||
+          (role === "doctor" && <Navigate to="/doctor-dashboard" />) ||
           (role === "patient" && <Navigate to="/patient-dashboard" />) || (
             <Navigate to="/login" />
           )
@@ -88,6 +89,7 @@ export default function Roots() {
         <Route exact path="doctors" element={<Doctors />} />
       </Route>
 
+      {/* doctor dashboard  */}
       <Route exact path="doctor-dashboard" element={<DoctorDashboard />}>
         <Route index element={<DoctorDashboardMain />} />
         <Route
