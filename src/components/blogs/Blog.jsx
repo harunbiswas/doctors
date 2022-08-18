@@ -22,10 +22,12 @@ export default function Blog({ data }) {
           <Link
             to={`/${
               (localStorage.getItem("login") &&
+                localStorage.getItem("login") &&
                 JSON.parse(localStorage.getItem("login")).value.loginData
                   .role === "admin") ||
-              (JSON.parse(localStorage.getItem("login")).value.loginData
-                .role === "editor" &&
+              (localStorage.getItem("login") &&
+                JSON.parse(localStorage.getItem("login")).value.loginData
+                  .role === "editor" &&
                 "admin/") ||
               ""
             }blog-detail/${data && data.id}`}
@@ -46,7 +48,7 @@ export default function Blog({ data }) {
                 </a>
               </li>
             </ul>
-            <Link to={`/admin/blog-detail/${data.id}`} className="link">
+            <Link to={`/blog-detail/${data.id}`} className="link">
               Read More <i className="mdi mdi-chevron-right align-middle"></i>
             </Link>
           </div>

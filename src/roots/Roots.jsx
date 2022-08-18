@@ -28,6 +28,7 @@ import DoctorProfileSettings from "../pages/doctor/DoctorProfileSettings";
 import DoctorSchedule from "../pages/doctor/DoctorSchedule";
 import Invoices from "../pages/doctor/Invoices";
 import About from "../pages/frontend/About";
+import BlogDetails from "../pages/frontend/BlogDetails";
 import Blogs from "../pages/frontend/Blogs";
 import BookingAppointment from "../pages/frontend/BookingAppointment";
 import Contact from "../pages/frontend/Contact";
@@ -73,7 +74,7 @@ export default function Roots() {
         <Route index element={<Home />} />
         <Route exact path="about" element={<About />} />
         <Route exact path="blogs" element={<Blogs />} />
-        <Route path="blog-detail/:id" element={<AdminBlogDetail />} />
+        <Route path="blog-detail/:id" element={<BlogDetails />} />
         <Route
           exact
           path="booking-appointment"

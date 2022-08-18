@@ -3,14 +3,34 @@ import React, { useEffect, useState } from "react";
 import OkMessage from "../../../components/basic/OkMessage";
 import Values from "../../../Values";
 
-export default function BookingForm() {
+export default function GustBookingForm() {
   // data handler
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [age, setAge] = useState("");
   const [clinicId, setClinicId] = useState(null);
   const [departmentId, setDepartmentId] = useState(null);
   const [doctorId, setDoctorId] = useState("");
   const [date, setDate] = useState("");
   const [message, setMessage] = useState("");
 
+  const nameHandler = (e) => {
+    setErrors({ ...errors, name: null });
+    setName(e.target.value);
+  };
+  const emailHandler = (e) => {
+    setErrors({ ...errors, email: null });
+    setEmail(e.target.value);
+  };
+  const phoneHandler = (e) => {
+    setErrors({ ...errors, phone: null });
+    setPhone(e.target.value);
+  };
+  const ageHandler = (e) => {
+    setErrors({ ...errors, age: null });
+    setAge(e.target.value);
+  };
   const clinicIdHandler = (e) => {
     setErrors({ ...errors, clinicId: null });
     setClinicId(e.target.value);
@@ -35,22 +55,8 @@ export default function BookingForm() {
   const [clinics, setClinics] = useState([]);
   const [deparments, setDepartments] = useState([]);
   const [doctors, setDoctors] = useState([]);
-  const [data, setData] = useState({});
 
   useEffect(() => {
-    // userdata
-    const userURL = `${Values.BASE_URL}/patient/list/${
-      JSON.parse(localStorage.getItem("login")).value.loginData.id
-    }`;
-    axios
-      .get(userURL)
-      .then((d) => {
-        setData(d.data);
-      })
-      .catch((e) => {
-        console.log(e.response);
-      });
-
     // clinic handler
     const clinicURL = `${Values.BASE_URL}/clinic`;
     axios
@@ -99,14 +105,12 @@ export default function BookingForm() {
         });
     }
   }, [clinicId, departmentId]);
-  const { age, email, firstName, lastName, phone, id } = data;
 
   const submitHandler = (e) => {
     e.preventDefault();
 
     const url = `${Values.BASE_URL}/appointment`;
     const data = {
-      patientId: id,
       clinicId,
       departmentId,
       doctorId,
@@ -114,7 +118,7 @@ export default function BookingForm() {
       comments: message,
       age,
       email,
-      name: firstName + " " + lastName,
+      name,
       phone,
     };
     axios
@@ -148,6 +152,98 @@ export default function BookingForm() {
           aria-labelledby="clinic-booking"
         >
           <div className="row">
+            <div className="col-lg-12">
+              <div className="mb-3">
+                <label htmlFor="name" className="form-label">
+                  Patient Name <span className="text-danger">*</span>
+                </label>
+                <input
+                  id="name"
+                  type="text"
+                  className={`form-control ${
+                    (errors && errors.name && "errors") || ""
+                  }`}
+                  placeholder="Name"
+                  name="name"
+                  value={name}
+                  onChange={(e) => nameHandler(e)}
+                />
+                {errors && errors.name && (
+                  <span className="error-msg text-danger">
+                    {errors.name.msg}
+                  </span>
+                )}
+              </div>
+            </div>
+            <div className="col-lg-12">
+              <div className="mb-3">
+                <label htmlFor="email" className="form-label">
+                  Your Email <span className="text-danger">*</span>
+                </label>
+                <input
+                  id="email"
+                  type="email"
+                  className={`form-control ${
+                    (errors && errors.email && "errors") || ""
+                  }`}
+                  placeholder="Email"
+                  name="email"
+                  value={email}
+                  onChange={(e) => emailHandler(e)}
+                />
+                {errors && errors.email && (
+                  <span className="error-msg text-danger">
+                    {errors.email.msg}
+                  </span>
+                )}
+              </div>
+            </div>
+            <div className="col-lg-6">
+              <div className="mb-3">
+                <label htmlFor="phone" className="form-label">
+                  Phone <span className="text-danger">*</span>
+                </label>
+                <input
+                  id="phone"
+                  type="phone"
+                  className={`form-control ${
+                    (errors && errors.phone && "errors") || ""
+                  }`}
+                  placeholder="Phone"
+                  name="phone"
+                  value={phone}
+                  onChange={(e) => phoneHandler(e)}
+                />
+                {errors && errors.phone && (
+                  <span className="error-msg text-danger">
+                    {errors.phone.msg}
+                  </span>
+                )}
+              </div>
+            </div>
+            <div className="col-lg-6">
+              <div className="mb-3">
+                <label htmlFor="age" className="form-label">
+                  Age <span className="text-danger">*</span>
+                </label>
+                <input
+                  id="age"
+                  type="text"
+                  className={`form-control ${
+                    (errors && errors.age && "errors") || ""
+                  }`}
+                  placeholder="age"
+                  name="age"
+                  value={age}
+                  onChange={(e) => ageHandler(e)}
+                />
+                {errors && errors.age && (
+                  <span className="error-msg text-danger">
+                    {errors.age.msg}
+                  </span>
+                )}
+              </div>
+            </div>
             <div className="col-md-6">
               <div className="mb-3">
                 <label className="form-label">Clinic</label>

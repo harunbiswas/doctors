@@ -1,4 +1,4 @@
-import AddAppointmentForm from "../../components/form/AddAppointmentForm";
+import GustBookingForm from "../../layouts/frontend/booking/GustBookingForm";
 
 export default function AddAppointment({ handler }) {
   return (
@@ -25,7 +25,7 @@ export default function AddAppointment({ handler }) {
               ></button>
             </div>
             <div className="modal-body p-3 pt-4">
-              <AddAppointmentForm />
+              <GustBookingForm />
             </div>
           </div>
         </div>
