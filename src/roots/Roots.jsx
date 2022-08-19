@@ -13,6 +13,7 @@ import AdminDashboard from "../pages/admin/AdminDashboard";
 import AdminDoctroProfile from "../pages/admin/AdminDoctorProfile";
 import AdminDoctors from "../pages/admin/AdminDoctors";
 import AdminPatients from "../pages/admin/AdminPatients";
+import AdminSingup from "../pages/admin/AdminSingup";
 import Appointments from "../pages/admin/Appointments";
 import AddDepartment from "../pages/clinic/AddDepartment";
 import ClinicAddDoctor from "../pages/clinic/ClinicAddDoctor";
@@ -87,6 +88,7 @@ export default function Roots() {
         <Route exact path="privacy" element={<PrivacyPolicy />} />
         <Route exact path="terms" element={<Terms />} />
         <Route exact path="doctors" element={<Doctors />} />
+        <Route exact path="adminSingup" element={<AdminSingup />} />
       </Route>
 
       {/* doctor dashboard  */}

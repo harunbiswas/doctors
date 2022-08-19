@@ -423,15 +423,6 @@ export default function SingUpFrom() {
             </button>
           </div>
         </div>
-
-        <div className="mx-auto">
-          <p className="mb-0 mt-3">
-            <small className="text-dark me-2">Already have an account ?</small>{" "}
-            <Link to="/login" className="text-dark fw-bold">
-              Sign in
-            </Link>
-          </p>
-        </div>
       </div>
     </form>
   );
