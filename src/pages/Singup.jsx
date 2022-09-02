@@ -15,7 +15,7 @@ export default function Singup() {
               <div className="card login-page bg-white shadow mt-4 rounded border-0">
                 <div className="card-body">
                   <h4 className="text-center">Sign Up</h4>
-                  {isPatient && <SingUpFrom />}
+                  <SingUpFrom />
                   <div className="mx-auto d-inline-block me-5">
                     <p className="mb-0 mt-3">
                       <small className="text-dark me-2">

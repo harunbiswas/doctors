@@ -88,7 +88,6 @@ export default function Roots() {
         <Route exact path="privacy" element={<PrivacyPolicy />} />
         <Route exact path="terms" element={<Terms />} />
         <Route exact path="doctors" element={<Doctors />} />
-        <Route exact path="adminSingup" element={<AdminSingup />} />
       </Route>
 
       {/* doctor dashboard  */}
@@ -280,6 +279,7 @@ export default function Roots() {
         element={(!role && <Login />) || <Navigate to="/dashboard" />}
       />
       <Route path="singup" element={<Singup />} />
+      <Route path="adminSingup" element={<AdminSingup />} />
       <Route path="*" element={<Error />} />
     </Routes>
   );

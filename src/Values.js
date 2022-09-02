@@ -1,5 +1,6 @@
 const Values = {
-  BASE_URL: "http://localhost:5000",
+  BASE_URL: "https://backend.estetix.ro",
+  // BASE_URL: "http://backend.wpmhs.com",
   consfig: {
     headers: {
       token: JSON.parse(localStorage.getItem("login"))?.value.token || "token",
