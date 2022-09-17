@@ -2,34 +2,69 @@
 // general.scss
 //
 body {
-    font-family: $font-family-secondary;
-    overflow-x: hidden !important;
-    font-size: $font-size-base;
-    color: $black;
+  font-family: $font-family-secondary;
+  overflow-x: hidden !important;
+  font-size: $font-size-base;
+  color: $black;
 }
-h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
-    font-family: $font-family-base;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6 {
+  font-family: $font-family-base;
 }
 ::selection {
-    background: rgba($primary, 0.9);
-    color: $white;
+  background: rgba($primary, 0.9);
+  color: $white;
 }
 a {
-    text-decoration: none !important;
+  text-decoration: none !important;
 }
 p {
-    line-height: 1.6;
+  line-height: 1.6;
 }
 
 #style-switcher {
-    .t-dark, 
-    .t-rtl-light {
-        display: inline-block;
-    }
-    .t-ltr-light,
-    .t-light,
-    .t-rtl-dark,
-    .t-ltr-dark {
-        display: none;
-    }
+  .t-dark,
+  .t-rtl-light {
+    display: inline-block;
+  }
+  .t-ltr-light,
+  .t-light,
+  .t-rtl-dark,
+  .t-ltr-dark {
+    display: none;
+  }
+}
+
+// scroll bar
+
+/* width */
+::-webkit-scrollbar {
+  width: 7px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+  width: 7px;
+  border-radius: 2rem;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
 }

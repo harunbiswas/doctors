@@ -23,10 +23,8 @@ export default function MadicalServices() {
           </div>
           {/* <!--end col--> */}
         </div>
-        {/* <!--end row--> */}
-        <CLinicItems />
 
-        {/* <!--end row--> */}
+        <CLinicItems />
       </div>
       {/* <!--end container--> */}
     </>

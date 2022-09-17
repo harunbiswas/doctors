@@ -133,7 +133,7 @@ export default function ClinicAppointmentMain() {
       <div className="row text-center">
         <div className="col-12 mt-4">
           <div className="d-md-flex align-items-center text-center justify-content-between">
-            {items.length > 10 && <Pagination data={{ data }} />}
+            {items.length > 10 && <Pagination />}
           </div>
         </div>
       </div>

@@ -42,6 +42,7 @@ import Home from "../pages/frontend/Home";
 import PatientDashboard from "../pages/frontend/PatientDashboard";
 import PatientInvoce from "../pages/frontend/PatientInvoice";
 import PrivacyPolicy from "../pages/frontend/PrivacyPolicy";
+import Search from "../pages/frontend/Search";
 import Terms from "../pages/frontend/Terms";
 import Login from "../pages/Login";
 import PatientAppointment from "../pages/patient/PatientAppointment";
@@ -88,6 +89,7 @@ export default function Roots() {
         <Route exact path="privacy" element={<PrivacyPolicy />} />
         <Route exact path="terms" element={<Terms />} />
         <Route exact path="doctors" element={<Doctors />} />
+        <Route exact path="search" element={<Search />} />
       </Route>
 
       {/* doctor dashboard  */}

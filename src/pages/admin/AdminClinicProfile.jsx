@@ -1,11 +1,10 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import AdminDoctorProfileSettings from "../../layouts/admin/AdminDoctorProfileSettings";
+import AdminClinicSettins from "../../layouts/clinics/AdminClinicSettins";
 import DoctorDepartments from "../../layouts/clinics/ClinicDepartments";
 import ClinicProfileOverview from "../../layouts/clinics/ClinicProfileOverview";
 import DoctorProfileReviews from "../../layouts/doctor-dashboard/DoctorProfileReviews";
-import DoctorProfileTimeTable from "../../layouts/doctor-dashboard/DoctorProfileTimeTable";
 import Values from "../../Values";
 
 export default function AdminClinicProfile() {
@@ -24,7 +23,7 @@ export default function AdminClinicProfile() {
     },
     {
       id: 4,
-      name: "Time Table",
+      name: "Location",
     },
     {
       id: 5,
@@ -121,8 +120,7 @@ export default function AdminClinicProfile() {
                       <DoctorDepartments data={data.departments} />
                     )) ||
                     (buttonID === 3 && <DoctorProfileReviews />) ||
-                    (buttonID === 4 && <DoctorProfileTimeTable />) ||
-                    (buttonID === 5 && <AdminDoctorProfileSettings />)}
+                    (buttonID === 5 && <AdminClinicSettins />)}
                 </div>
                 {/* <!--end tab content--> */}
               </div>

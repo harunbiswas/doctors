@@ -1,7 +1,7 @@
-import { Link } from "react-router-dom";
 import bgImg from "../../../assets/images/bg/about.jpg";
+import SearchForm from "../../../components/form/SearchForm";
 
-export default function CommonHero({ data }) {
+export default function SearchHero() {
   return (
     <>
       <section
@@ -12,25 +12,7 @@ export default function CommonHero({ data }) {
         <div className="container">
           <div className="row mt-5 justify-content-center">
             <div className="col-12">
-              <div className="section-title text-center">
-                <h3 className="sub-title mb-4 text-white title-dark">
-                  {data && data.title}
-                </h3>
-                <p className="para-desc mx-auto text-white-50">
-                  {data && data.text}
-                </p>
-
-                <nav aria-label="breadcrumb" className="d-inline-block mt-3">
-                  <ul className="breadcrumb bg-light rounded mb-0 py-1 px-2">
-                    <li className="breadcrumb-item">
-                      <Link to="/">Doctris</Link>
-                    </li>
-                    <li className="breadcrumb-item active" aria-current="page">
-                      {data && data.title}
-                    </li>
-                  </ul>
-                </nav>
-              </div>
+              <SearchForm />
             </div>
             {/* <!--end col--> */}
           </div>

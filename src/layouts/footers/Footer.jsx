@@ -224,16 +224,7 @@ export default function Footer() {
               <div className="col-sm-6">
                 <div className="text-sm-start text-center">
                   <p className="mb-0">
-                    {new Date().getFullYear()} © Doctris. Design with{" "}
-                    <i className="mdi mdi-heart text-danger"></i> by{" "}
-                    <a
-                      href="https://shreethemes.in/"
-                      target="_blank"
-                      className="text-reset"
-                    >
-                      Shreethemes
-                    </a>
-                    .
+                    {new Date().getFullYear()} © copyright Doctris.
                   </p>
                 </div>
               </div>

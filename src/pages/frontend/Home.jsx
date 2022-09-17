@@ -14,26 +14,18 @@ export default function Home() {
         <Hero />
         <Services />
 
-        {/* <!-- Start --> */}
         <section className="section bg-white pb-0">
           <AboutVideo />
           <MadicalServices />
           <Cta />
         </section>
-        {/* <!-- End --> */}
+
         <ClientLogo />
 
-        {/* <!-- End --> */}
-
-        {/* <!-- Start --> */}
         <section className="section bg-white">
           <Doctors />
           <Aperments />
         </section>
-        {/* <!--end section--> */}
-        {/* <!-- End --> */}
-
-        {/* <!-- MOdal End --> */}
       </div>
     </>
   );
