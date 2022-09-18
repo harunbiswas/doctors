@@ -1,10 +1,13 @@
-import { useState } from "react";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import Slider from "react-slick";
+import Values from "../../Values";
 
 export default function DoctorProfileExperience() {
   const settings = {
     dots: true,
-    infinite: true,
+    infinite: false,
     slidesToShow: 4,
     slidesToScroll: 4,
     autoplay: true,
@@ -37,8 +40,36 @@ export default function DoctorProfileExperience() {
       },
     ],
   };
+  const [reload, setReload] = useState(null);
 
-  const [items, setItem] = useState([1, 1, 1, 1, 1, 1, 1, 1, 1]);
+  const [items, setItem] = useState([]);
+  const { id } = useParams();
+  const [role, setRole] = useState("");
+  useEffect(() => {
+    const url = `${Values.BASE_URL}/doctor/experience/${id}`;
+
+    axios
+      .get(url)
+      .then((d) => {
+        setItem(d.data);
+      })
+      .catch((e) => {
+        console.log(e.response);
+      });
+
+    //set role
+    setRole(JSON.parse(localStorage.getItem("login"))?.value.loginData.role);
+  }, [reload]);
+
+  const deleteHandler = async (e) => {
+    const url = `${Values.BASE_URL}/doctor/experience/${e}`;
+    try {
+      const data = await axios.delete(url, Values.consfig);
+      setReload(data);
+    } catch (e) {
+      console.log(e.response);
+    }
+  };
   return (
     <>
       <div
@@ -49,20 +80,6 @@ export default function DoctorProfileExperience() {
       >
         <h5 className="mb-1">Experience:</h5>
 
-        <p className="text-muted mt-4">
-          The most well-known dummy text is the 'Lorem Ipsum', which is said to
-          have originated in the 16th century. Lorem Ipsum is composed in a
-          pseudo-Latin language which more or less corresponds to 'proper'
-          Latin. It contains a series of real Latin words. This ancient dummy
-          text is also incomprehensible, but it imitates the rhythm of most
-          European languages in Latin script. The advantage of its Latin origin
-          and the relative meaninglessness of Lorum Ipsum is that the text does
-          not attract attention to itself or distract the viewer's attention
-          from the layout.
-        </p>
-
-        <h6>Professional Experience:</h6>
-
         <div className="row">
           <div className="col-12 mt-4">
             <div className="col-md-12">
@@ -70,10 +87,24 @@ export default function DoctorProfileExperience() {
                 <Slider {...settings}>
                   {items?.map((item, i) => (
                     <div key={i} className="tiny-slide text-center">
-                      <div className="card border-0 p-4 item-box mb-2 shadow rounded">
-                        <p className="text-muted mb-0">2010 - 2014</p>
-                        <h6 className="mt-1">Master Of Science</h6>
-                        <p className="text-muted mb-0">X.Y.Z Hospital (NZ)</p>
+                      <div className="card border-0 p-5 item-box mb-2 shadow rounded position-relative">
+                        <p className="text-muted mb-0">
+                          {item?.fromDate} - {item?.toDate}
+                        </p>
+                        <h6 className="mt-1">{item?.role}</h6>
+                        <p className="text-muted mb-0">{item?.institute}</p>
+                        {(role === "clinic" || role === "doctor") && (
+                          <button
+                            className="btn btn-outline-danger position-absolute"
+                            style={{
+                              top: "5px",
+                              right: "5px",
+                            }}
+                            onClick={(e) => deleteHandler(item?.id)}
+                          >
+                            delete
+                          </button>
+                        )}
                       </div>
                     </div>
                   ))}

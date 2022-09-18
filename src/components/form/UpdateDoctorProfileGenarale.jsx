@@ -57,7 +57,7 @@ export default function UpdateDoctorProfileGenarale() {
 
   useEffect(() => {
     const url = `${Values.BASE_URL}/clinic/doctor/${id}`;
-    console.log(url);
+
     axios
       .get(url)
       .then((d) => {
@@ -76,6 +76,7 @@ export default function UpdateDoctorProfileGenarale() {
 
   // submit handler
   const submitHandler = (e) => {
+    e.preventDefault();
     const data = {
       degree,
       fee,
@@ -88,7 +89,10 @@ export default function UpdateDoctorProfileGenarale() {
     const url = `${Values.BASE_URL}/clinic/doctor/${id || userId}`;
     axios
       .put(url, data, Values.consfig)
-      .then((d) => setMsg(d.data))
+      .then((d) => {
+        setMsg(d.data);
+        location.reload();
+      })
       .catch((e) => {
         console.log(e.response);
       });

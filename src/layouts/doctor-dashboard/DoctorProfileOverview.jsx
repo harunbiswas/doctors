@@ -30,11 +30,7 @@ export default function DoctorProfileOverview({ data }) {
             <a href={`mailto: ${data && data.phone}`}>{data && data.email}</a>
           </li>
         </ul>
-        <h6>My Team: </h6>
-
-        {/* <!--end row--> */}
       </div>
-      {/* <!--end teb pane--> */}
     </>
   );
 }

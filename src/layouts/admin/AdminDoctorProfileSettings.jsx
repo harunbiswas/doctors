@@ -123,10 +123,6 @@ export default function AdminDoctorProfileSettings() {
             </div>
 
             <div class="rounded shadow mt-4">
-              <div class="p-4 border-bottom">
-                <h6 class="mb-0">General Notifications :</h6>
-              </div>
-
               <div class="p-4">
                 <div class="p-4 border-bottom">
                   <h5 class="mb-0 text-danger">Delete Account :</h5>

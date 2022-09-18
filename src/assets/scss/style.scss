@@ -30,6 +30,11 @@
  *     18.  Footer               *
  ================================*/
 
+//  basic style
+img {
+  object-fit: cover;
+}
+
 @import "variables";
 @import "./rtl/utilities";
 @import "bootstrap-custom";

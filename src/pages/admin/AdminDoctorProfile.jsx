@@ -52,7 +52,6 @@ export default function AdminDoctroProfile() {
         console.log(e.response);
       });
   }, []);
-  console.log(data);
 
   return (
     <>
@@ -87,7 +86,10 @@ export default function AdminDoctroProfile() {
               <h5 className="mt-3 mb-1">
                 {data && data.firstName + " " + data.lastName}
               </h5>
-              <p className="text-muted mb-0">{data && data.title}</p>
+              <p className="text-muted mb-0">
+                {data && data.title}{" "}
+                <span className="text-primary">{data?.degree}</span>
+              </p>
             </div>
           </div>
 
@@ -108,7 +110,6 @@ export default function AdminDoctroProfile() {
                         }`}
                         id="overview-tab"
                         data-bs-toggle="pill"
-                        href="#pills-overview"
                         role="tab"
                         aria-controls="pills-overview"
                         aria-selected="false"

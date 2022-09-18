@@ -7,11 +7,7 @@ export default function DoctorCardTwo({ data }) {
     <>
       <div className="card team border-0 rounded shadow overflow-hidden d">
         <div className="team-img position-relative">
-          <img
-            src="/media/harun/Harun/Fiverr/doctors/backend/public/images/photo/screenshot-from-2022-07-28-15-13-07-1660682088855.png"
-            className="img-fluid"
-            alt=""
-          />
+          <img src={data?.image} className="img-fluid" alt="" />
           <ul className="list-unstyled team-social mb-0">
             <li>
               <a

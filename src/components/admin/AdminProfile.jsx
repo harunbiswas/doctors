@@ -54,7 +54,7 @@ export default function AdminProfile() {
         >
           <a
             className="dropdown-item d-flex align-items-center text-dark"
-            href="profile.html"
+            href="/admin"
           >
             <img
               src={

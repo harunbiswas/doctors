@@ -320,7 +320,7 @@ export default function AddDoctorFrom() {
               value={departmentId}
               onChange={(e) => departmentHandler(e)}
             >
-              <option value={null}>Department</option>
+              <option value={null}>-- select department --</option>
               {departments.length > 0 &&
                 departments.map((data, i) => (
                   <option key={i} value={data.id}>
