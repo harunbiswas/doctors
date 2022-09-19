@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Slider from "react-slick";
+import AddExperinceFrom from "../../components/form/AddExperinceFrom";
 import Values from "../../Values";
 
 export default function DoctorProfileExperience() {
@@ -45,6 +46,7 @@ export default function DoctorProfileExperience() {
   const [items, setItem] = useState([]);
   const { id } = useParams();
   const [role, setRole] = useState("");
+  const [isAddExperience, setIsExperience] = useState(false);
   useEffect(() => {
     const url = `${Values.BASE_URL}/doctor/experience/${id}`;
 
@@ -70,6 +72,12 @@ export default function DoctorProfileExperience() {
       console.log(e.response);
     }
   };
+  const closeHanler = (e) => {
+    setIsExperience(false);
+  };
+  const openHanler = (e) => {
+    setIsExperience(true);
+  };
   return (
     <>
       <div
@@ -79,13 +87,22 @@ export default function DoctorProfileExperience() {
         aria-labelledby="experience-tab"
       >
         <h5 className="mb-1">Experience:</h5>
+        {role && (role === "clinic" || role === "doctor") && (
+          <button className="btn btn-primary" onClick={openHanler}>
+            add Experience
+          </button>
+        )}
+
+        {isAddExperience && (
+          <AddExperinceFrom prop={{ handler: closeHanler }} />
+        )}
 
         <div className="row">
           <div className="col-12 mt-4">
             <div className="col-md-12">
               <div className="slider-range-four tiny-timeline">
                 <Slider {...settings}>
-                  {items?.map((item, i) => (
+                  {items?.reverse().map((item, i) => (
                     <div key={i} className="tiny-slide text-center">
                       <div className="card border-0 p-5 item-box mb-2 shadow rounded position-relative">
                         <p className="text-muted mb-0">
