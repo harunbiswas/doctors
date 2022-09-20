@@ -1,11 +1,12 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import profileImg from "../../assets/images/doctors/01.jpg";
+import { Link } from "react-router-dom";
 import img from "../../assets/images/doctors/profile-bg.jpg";
 import Values from "../../Values";
 
 export default function DoctorDashboardSideBar() {
   const [data, setData] = useState({});
+  let [id, setId] = useState("");
   useEffect(() => {
     const url = `${Values.BASE_URL}/doctor/info`;
     axios
@@ -16,7 +17,11 @@ export default function DoctorDashboardSideBar() {
       .catch((e) => {
         console.log(e.response);
       });
+
+    // set id
+    setId(JSON.parse(localStorage.getItem("login"))?.value.loginData.id);
   }, []);
+  console.log(data);
   return (
     <>
       <div className="rounded shadow overflow-hidden sticky-bar">
@@ -26,7 +31,7 @@ export default function DoctorDashboardSideBar() {
 
         <div className="text-center avatar-profile margin-nagative mt-n5 position-relative pb-4 border-bottom">
           <img
-            src={profileImg}
+            src={data?.image}
             className="rounded-circle shadow-md avatar avatar-md-md"
             alt=""
           />
@@ -38,10 +43,10 @@ export default function DoctorDashboardSideBar() {
 
         <ul className="list-unstyled sidebar-nav mb-0">
           <li className="navbar-item">
-            <a href="/doctor-dashboard" className="navbar-link">
+            <Link to="/doctor-dashboard" className="navbar-link">
               <i className="ri-airplay-line align-middle navbar-icon"></i>{" "}
               Dashboard
-            </a>
+            </Link>
           </li>
           <li className="navbar-item">
             <a
@@ -53,27 +58,36 @@ export default function DoctorDashboardSideBar() {
             </a>
           </li>
           <li className="navbar-item">
-            <a href="/doctor-dashboard/doctor-schedule" className="navbar-link">
+            <Link
+              to="/doctor-dashboard/doctor-schedule"
+              className="navbar-link"
+            >
               <i className="ri-timer-line align-middle navbar-icon"></i>{" "}
               Schedule Timing
-            </a>
+            </Link>
           </li>
           <li className="navbar-item">
-            <a href="/doctor-dashboard/invoices" className="navbar-link">
+            <Link to="/doctor-dashboard/invoices" className="navbar-link">
               <i className="ri-pages-line align-middle navbar-icon"></i>{" "}
               Invoices
-            </a>
+            </Link>
           </li>
           <li className="navbar-item">
-            <a href="/doctor-dashboard/doctor-messages" className="navbar-link">
+            <Link
+              to="/doctor-dashboard/doctor-messages"
+              className="navbar-link"
+            >
               <i className="ri-mail-unread-line align-middle navbar-icon"></i>{" "}
               Messages
-            </a>
+            </Link>
           </li>
           <li className="navbar-item">
-            <a href="/doctor-dashboard/doctor-profile" className="navbar-link">
+            <Link
+              to={`/doctor-dashboard/doctor-profile/${id}`}
+              className="navbar-link"
+            >
               <i className="ri-user-line align-middle navbar-icon"></i> Profile
-            </a>
+            </Link>
           </li>
           <li className="navbar-item">
             <a
@@ -85,34 +99,37 @@ export default function DoctorDashboardSideBar() {
             </a>
           </li>
           <li className="navbar-item">
-            <a href="/doctor-dashboard/patient-list" className="navbar-link">
+            <Link to="/doctor-dashboard/patient-list" className="navbar-link">
               <i className="ri-empathize-line align-middle navbar-icon"></i>{" "}
               Patients
-            </a>
+            </Link>
           </li>
           <li className="navbar-item">
-            <a href="/doctor-dashboard/patient-review" className="navbar-link">
+            <Link to="/doctor-dashboard/patient-review" className="navbar-link">
               <i className="ri-chat-1-line align-middle navbar-icon"></i>{" "}
               Patients Review
-            </a>
+            </Link>
           </li>
           <li className="navbar-item">
-            <a href="/doctor-dashboard/doctor-chat" className="navbar-link">
+            <Link to="/doctor-dashboard/doctor-chat" className="navbar-link">
               <i className="ri-chat-voice-line align-middle navbar-icon"></i>{" "}
               Chat
-            </a>
+            </Link>
           </li>
           <li className="navbar-item">
-            <a href="/ldoctor-dashboard/ogin" className="navbar-link">
+            <Link to="/ldoctor-dashboard/ogin" className="navbar-link">
               <i className="ri-login-circle-line align-middle navbar-icon"></i>{" "}
               Login
-            </a>
+            </Link>
           </li>
           <li className="navbar-item">
-            <a href="/doctor-dashboard/forgot-password" className="navbar-link">
+            <Link
+              to="/doctor-dashboard/forgot-password"
+              className="navbar-link"
+            >
               <i className="ri-device-recover-line align-middle navbar-icon"></i>{" "}
               Forgot Password
-            </a>
+            </Link>
           </li>
         </ul>
       </div>

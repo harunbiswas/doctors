@@ -1,8 +1,11 @@
+import { useNavigate } from "react-router-dom";
+
 export default function LogoutBtn() {
+  const navigate = useNavigate();
   // do logout
   const logoutHandler = () => {
     localStorage.clear("login");
-    location.reload();
+    navigate("/");
   };
   return (
     <button

@@ -20,6 +20,7 @@ import ClinicAddDoctor from "../pages/clinic/ClinicAddDoctor";
 import ClinicDashboard from "../pages/clinic/ClinicDashboar";
 import ClinicDashboardMain from "../pages/clinic/ClinicDashboardMain";
 import ClinicDepartmentsMain from "../pages/clinic/ClinicDeparmentsMain";
+import ClinicSingup from "../pages/clinic/ClinicSingup";
 import DoctorAppointment from "../pages/doctor/DoctorAppointment";
 import DoctorDashboard from "../pages/doctor/DoctorDashboard";
 import DoctorPatientReviews from "../pages/doctor/DoctorPatientReviews";
@@ -102,7 +103,7 @@ export default function Roots() {
         />
         <Route exact path="doctor-schedule" element={<DoctorSchedule />} />
         <Route exact path="invoices" element={<Invoices />} />
-        <Route exact path="doctor-profile" element={<DoctorProfile />} />
+        <Route exact path="doctor-profile/:id" element={<DoctorProfile />} />
         <Route
           exact
           path="doctor-profile-setting"
@@ -112,6 +113,7 @@ export default function Roots() {
         <Route exact path="patient-review" element={<DoctorPatientReviews />} />
         <Route exact path="patient-dashboard" element={<PatientDashboard />} />
         <Route exact path="patient-invoice" element={<PatientInvoce />} />
+        <Route exact path="profile/:id" element={<AdminDoctroProfile />} />
       </Route>
       {/* dashboard  */}
       <Route exact path="/admin" element={<AdminDashboard />}>
@@ -254,6 +256,15 @@ export default function Roots() {
             )
           }
         />
+        <Route
+          exact
+          path="profile/:id"
+          element={
+            (role && role === "clinic" && <AdminClinicProfile />) || (
+              <Navigate to="/login" />
+            )
+          }
+        />
       </Route>
 
       {/* // patient dashboard  */}
@@ -282,6 +293,7 @@ export default function Roots() {
       />
       <Route path="singup" element={<Singup />} />
       <Route path="adminSingup" element={<AdminSingup />} />
+      <Route path="clinicSingup" element={<ClinicSingup />} />
       <Route path="*" element={<Error />} />
     </Routes>
   );

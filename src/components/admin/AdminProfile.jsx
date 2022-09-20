@@ -1,5 +1,7 @@
-import { useState } from "react";
+import axios from "axios";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import Values from "../../Values";
 import LogoutBtn from "../btns/LogoutBtn";
 
 export default function AdminProfile() {
@@ -18,6 +20,25 @@ export default function AdminProfile() {
       setIsToggle(true);
     }
   };
+  let url;
+
+  useEffect(() => {
+    url =
+      (data.role === "clinic" && `${Values.BASE_URL}/clinic/list/${data.id}`) ||
+      (data.role === "doctor" &&
+        `${Values.BASE_URL}/clinic/doctor/${data.id}` | axios.get({ url })) ||
+      "";
+
+    axios
+      .get(url)
+      .then((d) => {
+        setImg(d.data.image);
+      })
+      .catch((e) => {
+        console.log(e.response);
+      });
+    console.log(url);
+  }, []);
 
   return (
     <li className="list-inline-item mb-0 ms-1">
@@ -52,10 +73,7 @@ export default function AdminProfile() {
             transform: "translate(-162px, 40px)",
           }}
         >
-          <a
-            className="dropdown-item d-flex align-items-center text-dark"
-            href="/admin"
-          >
+          <p className="dropdown-item d-flex align-items-center text-dark">
             <img
               src={
                 img || "https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
@@ -69,14 +87,17 @@ export default function AdminProfile() {
               </span>
               <small className="text-muted">{data && data.role}</small>
             </div>
-          </a>
+          </p>
           <Link to="/dashboard" className="dropdown-item text-dark">
             <span className="mb-0 d-inline-block me-1">
               <i className="uil uil-dashboard align-middle h6"></i>
             </span>{" "}
             Dashboard
           </Link>
-          <Link to="/" className="dropdown-item text-dark">
+          <Link
+            to={`/${data.role}-dashboard/profile/${data.id}`}
+            className="dropdown-item text-dark"
+          >
             <span className="mb-0 d-inline-block me-1">
               <i className="uil uil-setting align-middle h6"></i>
             </span>{" "}

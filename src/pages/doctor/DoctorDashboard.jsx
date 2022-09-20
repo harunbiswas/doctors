@@ -1,11 +1,9 @@
 import { Outlet } from "react-router-dom";
 import DoctorDashboardSideBar from "../../layouts/doctor-dashboard/DoctorDashboardSideBar";
-import HeaderOne from "../../layouts/headers/HeaderOne";
 
 export default function DoctorDashboard() {
   return (
     <>
-      <HeaderOne />
       <section className="bg-dashboard">
         <div className="container-fluid">
           <div className="row">
