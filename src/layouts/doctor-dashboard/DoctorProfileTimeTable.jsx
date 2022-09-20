@@ -1,4 +1,35 @@
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import TimeTable from "../../components/doctor/TimeTable";
+import AddTimeTableFrom from "../../components/form/AddTimeTableFrom";
+import Values from "../../Values";
+
 export default function DoctorProfileTimeTable() {
+  const [role, setRole] = useState("");
+  const [isAddTimeTable, setIsTimeTable] = useState(false);
+  const [data, setData] = useState({});
+
+  const addTimeTableOpen = () => {
+    setIsTimeTable(true);
+  };
+  const addTimeTableClose = () => {
+    setIsTimeTable(false);
+  };
+  const { id } = useParams();
+  useEffect(() => {
+    setRole(JSON.parse(localStorage.getItem("login"))?.value.loginData.role);
+
+    axios
+      .get(`${Values.BASE_URL}/clinic/doctor/${id}`)
+      .then((d) => {
+        setData(d.data);
+      })
+      .catch((e) => {
+        console.log(e.response);
+      });
+  }, []);
+
   return (
     <>
       <div
@@ -7,74 +38,22 @@ export default function DoctorProfileTimeTable() {
         role="tabpanel"
         aria-labelledby="timetable-tab"
       >
+        {role && (role === "clinic" || role === "doctor") && (
+          <button
+            className="btn btn-primary text-capitalize"
+            onClick={addTimeTableOpen}
+          >
+            add time table
+          </button>
+        )}
+
+        {isAddTimeTable && (
+          <AddTimeTableFrom prop={{ handler: addTimeTableClose }} />
+        )}
         <div className="row">
           <div className="col-lg-4 col-md-12">
             <div className="card border-0 p-3 rounded shadow">
-              <ul className="list-unstyled mb-0">
-                <li className="d-flex justify-content-between">
-                  <p className="text-muted mb-0">
-                    <i className="ri-time-fill text-primary align-middle h5 mb-0"></i>{" "}
-                    Monday
-                  </p>
-                  <p className="text-primary mb-0">
-                    <span className="text-dark">Time:</span> 8.00 - 20.00
-                  </p>
-                </li>
-                <li className="d-flex justify-content-between mt-2">
-                  <p className="text-muted mb-0">
-                    <i className="ri-time-fill text-primary align-middle h5 mb-0"></i>{" "}
-                    Tuesday
-                  </p>
-                  <p className="text-primary mb-0">
-                    <span className="text-dark">Time:</span> 8.00 - 20.00
-                  </p>
-                </li>
-                <li className="d-flex justify-content-between mt-2">
-                  <p className="text-muted mb-0">
-                    <i className="ri-time-fill text-primary align-middle h5 mb-0"></i>{" "}
-                    Wednesday
-                  </p>
-                  <p className="text-primary mb-0">
-                    <span className="text-dark">Time:</span> 8.00 - 20.00
-                  </p>
-                </li>
-                <li className="d-flex justify-content-between mt-2">
-                  <p className="text-muted mb-0">
-                    <i className="ri-time-fill text-primary align-middle h5 mb-0"></i>{" "}
-                    Thursday
-                  </p>
-                  <p className="text-primary mb-0">
-                    <span className="text-dark">Time:</span> 8.00 - 20.00
-                  </p>
-                </li>
-                <li className="d-flex justify-content-between mt-2">
-                  <p className="text-muted mb-0">
-                    <i className="ri-time-fill text-primary align-middle h5 mb-0"></i>{" "}
-                    Friday
-                  </p>
-                  <p className="text-primary mb-0">
-                    <span className="text-dark">Time:</span> 8.00 - 20.00
-                  </p>
-                </li>
-                <li className="d-flex justify-content-between mt-2">
-                  <p className="text-muted mb-0">
-                    <i className="ri-time-fill text-primary align-middle h5 mb-0"></i>{" "}
-                    Saturday
-                  </p>
-                  <p className="text-primary mb-0">
-                    <span className="text-dark">Time:</span> 8.00 - 18.00
-                  </p>
-                </li>
-                <li className="d-flex justify-content-between mt-2">
-                  <p className="text-muted mb-0">
-                    <i className="ri-time-fill text-primary align-middle h5 mb-0"></i>{" "}
-                    Sunday
-                  </p>
-                  <p className="text-primary mb-0">
-                    <span className="text-dark">Time:</span> 8.00 - 14.00
-                  </p>
-                </li>
-              </ul>
+              <TimeTable />
             </div>
           </div>
           {/* <!--end col--> */}
@@ -93,8 +72,8 @@ export default function DoctorProfileTimeTable() {
                   Great doctor if you need your family member to get effective
                   immediate assistance
                 </p>
-                <a href="tel:+152534-468-854" className="link">
-                  +152 534-468-854
+                <a href={`tel:${data?.phone}`} className="link">
+                  {data?.phone}
                 </a>
               </div>
             </div>
@@ -115,8 +94,8 @@ export default function DoctorProfileTimeTable() {
                   Great doctor if you need your family member to get effective
                   immediate assistance
                 </p>
-                <a href="mailto:contact@example.com" className="link">
-                  contact@example.com
+                <a href={`mailto:${data?.email}`} className="link">
+                  {data?.email}
                 </a>
               </div>
             </div>
