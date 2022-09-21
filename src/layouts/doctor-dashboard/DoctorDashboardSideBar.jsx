@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import img from "../../assets/images/doctors/profile-bg.jpg";
+import LogoutBtn from "../../components/btns/LogoutBtn";
 import Values from "../../Values";
 
 export default function DoctorDashboardSideBar() {
@@ -21,7 +22,7 @@ export default function DoctorDashboardSideBar() {
     // set id
     setId(JSON.parse(localStorage.getItem("login"))?.value.loginData.id);
   }, []);
-  console.log(data);
+
   return (
     <>
       <div className="rounded shadow overflow-hidden sticky-bar">
@@ -116,12 +117,9 @@ export default function DoctorDashboardSideBar() {
               Chat
             </Link>
           </li>
-          <li className="navbar-item">
-            <Link to="/ldoctor-dashboard/ogin" className="navbar-link">
-              <i className="ri-login-circle-line align-middle navbar-icon"></i>{" "}
-              Login
-            </Link>
-          </li>
+
+          <LogoutBtn />
+
           <li className="navbar-item">
             <Link
               to="/doctor-dashboard/forgot-password"

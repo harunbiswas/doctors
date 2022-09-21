@@ -5,7 +5,8 @@ export default function LogoutBtn() {
   // do logout
   const logoutHandler = () => {
     localStorage.clear("login");
-    navigate("/");
+    navigate("/", true);
+    console.log("test");
   };
   return (
     <button

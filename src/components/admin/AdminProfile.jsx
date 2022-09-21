@@ -26,7 +26,9 @@ export default function AdminProfile() {
     url =
       (data.role === "clinic" && `${Values.BASE_URL}/clinic/list/${data.id}`) ||
       (data.role === "doctor" &&
-        `${Values.BASE_URL}/clinic/doctor/${data.id}` | axios.get({ url })) ||
+        `${Values.BASE_URL}/clinic/doctor/${data.id}`) ||
+      (data.role === "patient" &&
+        `${Values.BASE_URL}/patient/list/${data.id}`) ||
       "";
 
     axios
@@ -40,6 +42,7 @@ export default function AdminProfile() {
     console.log(url);
   }, []);
 
+  console.log(img);
   return (
     <li className="list-inline-item mb-0 ms-1">
       <div className="dropdown dropdown-primary">

@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useRef, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Values from "../../Values";
 import OkMessage from "../basic/OkMessage";
 
@@ -73,6 +73,7 @@ export default function SingUpFrom() {
 
   // submit handler
   const formData = new FormData();
+  const navigate = useNavigate();
   const sebmitHandler = (e) => {
     e.preventDefault();
     formData.append("files", file);
@@ -93,6 +94,7 @@ export default function SingUpFrom() {
     axios
       .post(url, formData)
       .then((d) => {
+        navigate("/login");
         setMsg(d.data);
       })
       .catch((e) => {

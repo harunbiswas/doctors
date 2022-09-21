@@ -95,25 +95,104 @@ export default function Roots() {
 
       {/* doctor dashboard  */}
       <Route exact path="doctor-dashboard" element={<DoctorDashboard />}>
-        <Route index element={<DoctorDashboardMain />} />
+        <Route
+          index
+          element={
+            (role && role === "doctor" && <DoctorDashboardMain />) || (
+              <Navigate to="/login" />
+            )
+          }
+        />
         <Route
           exact
           path="doctor-appointment"
-          element={<DoctorAppointment />}
+          element={
+            (role && role === "doctor" && <DoctorAppointment />) || (
+              <Navigate to="/login" />
+            )
+          }
         />
-        <Route exact path="doctor-schedule" element={<DoctorSchedule />} />
-        <Route exact path="invoices" element={<Invoices />} />
-        <Route exact path="doctor-profile/:id" element={<DoctorProfile />} />
+        <Route
+          exact
+          path="doctor-schedule"
+          element={
+            (role && role === "doctor" && <DoctorSchedule />) || (
+              <Navigate to="/login" />
+            )
+          }
+        />
+        <Route
+          exact
+          path="invoices"
+          element={
+            (role && role === "doctor" && <Invoices />) || (
+              <Navigate to="/login" />
+            )
+          }
+        />
+        <Route
+          exact
+          path="doctor-profile/:id"
+          element={
+            (role && role === "doctor" && <DoctorProfile />) || (
+              <Navigate to="/login" />
+            )
+          }
+        />
         <Route
           exact
           path="doctor-profile-setting"
-          element={<DoctorProfileSettings />}
+          element={
+            (role && role === "doctor" && <DoctorProfileSettings />) || (
+              <Navigate to="/login" />
+            )
+          }
         />
-        <Route exact path="patient-list" element={<DoctorPatients />} />
-        <Route exact path="patient-review" element={<DoctorPatientReviews />} />
-        <Route exact path="patient-dashboard" element={<PatientDashboard />} />
-        <Route exact path="patient-invoice" element={<PatientInvoce />} />
-        <Route exact path="profile/:id" element={<AdminDoctroProfile />} />
+        <Route
+          exact
+          path="patient-list"
+          element={
+            (role && role === "doctor" && <DoctorPatients />) || (
+              <Navigate to="/login" />
+            )
+          }
+        />
+        <Route
+          exact
+          path="patient-review"
+          element={
+            (role && role === "doctor" && <DoctorPatientReviews />) || (
+              <Navigate to="/login" />
+            )
+          }
+        />
+        <Route
+          exact
+          path="patient-dashboard"
+          element={
+            (role && role === "doctor" && <PatientDashboard />) || (
+              <Navigate to="/login" />
+            )
+          }
+        />
+        <Route
+          exact
+          path="patient-invoice"
+          element={
+            (role && role === "doctor" && <PatientInvoce />) || (
+              <Navigate to="/login" />
+            )
+          }
+        />
+        <Route
+          exact
+          path="profile/:id"
+          element={
+            (role && role === "doctor" && <AdminDoctroProfile />) || (
+              <Navigate to="/login" />
+            )
+          }
+        />
       </Route>
       {/* dashboard  */}
       <Route exact path="/admin" element={<AdminDashboard />}>
