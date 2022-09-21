@@ -42,7 +42,6 @@ export default function AdminProfile() {
     console.log(url);
   }, []);
 
-  console.log(img);
   return (
     <li className="list-inline-item mb-0 ms-1">
       <div className="dropdown dropdown-primary">
