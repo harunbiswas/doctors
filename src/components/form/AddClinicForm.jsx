@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Values from "../../Values";
 import OkMessage from "../basic/OkMessage";
 
@@ -77,6 +78,7 @@ export default function AddClinicFrom() {
     location.reload();
   };
 
+  const navigate = useNavigate();
   // submit handler
   const formData = new FormData();
   const submitHandler = (e) => {
@@ -96,6 +98,7 @@ export default function AddClinicFrom() {
       .post(url, formData)
       .then((d) => {
         setMsg(d.data);
+        navigate("/login");
       })
       .catch((e) => {
         setErrors(e.response.data);
