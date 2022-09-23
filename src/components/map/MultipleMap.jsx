@@ -1,5 +1,5 @@
 import GoogleMapReact from "google-map-react";
-import React, { useState } from "react";
+import React from "react";
 import pin from "../../assets/images/pin-image.png";
 import Values from "../../Values";
 
@@ -9,25 +9,20 @@ const AnyReactComponent = ({ text }) => (
   </div>
 );
 
-export default function SingleMap({ info }) {
-  const [data, setData] = useState({
-    latitude: Number(info.latitude),
-    longitude: Number(info.longitude),
-  });
-
+export default function MultipleMap({ info }) {
   const defaultProps = {
     center: {
-      lat: data.latitude,
-      lng: data.longitude,
+      lat: Number(info[0]?.latitude) || 22.34234234,
+      lng: Number(info[0]?.longitude) || 90.23423423,
     },
     zoom: 16,
     mapTypeId: "satellite",
   };
-  console.log(typeof data.latitude);
+
   return (
     // Important! Always set the container height explicitly
-    <div style={{ height: "400px", width: "100%" }}>
-      {true && (
+    <div style={{ height: "800px", width: "100%" }}>
+      {info.length > 0 && (
         <GoogleMapReact
           bootstrapURLKeys={{ key: Values.API_KEY }}
           defaultCenter={defaultProps.center}
@@ -37,11 +32,13 @@ export default function SingleMap({ info }) {
             mapTypeId: "satellite",
           }}
         >
-          <AnyReactComponent
-            lat={data.latitude}
-            lng={data.longitude}
-            text="Haru"
-          />
+          {info?.map((d, i) => (
+            <AnyReactComponent
+              key={i}
+              lat={Number(d.latitude)}
+              lng={Number(d.longitude)}
+            />
+          ))}
         </GoogleMapReact>
       )}
     </div>

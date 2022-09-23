@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from "react";
-import ClinicCard from "../../components/card/ClinicCard";
+import ClinicCardFrontend from "../../components/card/ClinicCardFrontend";
 import DoctorCard from "../../components/doctor/DoctorCard";
+import MultipleMap from "../../components/map/MultipleMap";
 import Context from "../../context/Context";
 import SearchHero from "../../layouts/frontend/basic/SearchHero";
 
@@ -42,21 +43,14 @@ export default function Search() {
                     <div key={i} className="col-12 my-2 py-1">
                       {(activeBtn === "doctors" && (
                         <DoctorCard data={item} />
-                      )) || <ClinicCard data={item} />}
+                      )) || <ClinicCardFrontend data={item} />}
                     </div>
                   ))}
                 </div>
               </div>
             </div>
             <div className="col-md-5 overflow-hidden rounded-3">
-              <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14501.878533145651!2d30.594126639469366!3d24.676377696256033!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1438e614f64568c5%3A0xb87ac16373a6efc9!2sBaris%2C%20Kharga%2C%20New%20Valley%20Governorate%2C%20Egypt!5e0!3m2!1sen!2sbd!4v1663186908022!5m2!1sen!2sbd"
-                allowFullScreen=""
-                width="100%"
-                height="100%"
-                loading="lazy"
-                referrerpolicy="no-referrer-when-downgrade"
-              ></iframe>
+              <MultipleMap info={items} />
             </div>
           </div>
         </div>

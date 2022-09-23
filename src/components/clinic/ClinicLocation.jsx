@@ -1,4 +1,4 @@
-import SingleMap from "../basic/SingleMap";
+import SingleMap from "../map/SingleMap";
 
 export default function ClinicLocation({ data }) {
   return (

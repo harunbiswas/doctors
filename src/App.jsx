@@ -12,6 +12,7 @@ function App() {
   const [activeBtn, setActiveBtn] = useState("clinics");
   const btnHandler = (e) => {
     setActiveBtn(e);
+    setSearchData([]);
   };
 
   const [location, setLocation] = useState({
