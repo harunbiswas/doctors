@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { AiOutlineHeart, AiTwotoneHeart } from "react-icons/ai";
+import { Link } from "react-router-dom";
 
 export default function ClinicCard({ data }) {
   const [starts, setStarts] = useState([1, 1, 1, 1, 1]);
@@ -35,10 +36,12 @@ export default function ClinicCard({ data }) {
         </div>
         <div className="col-md-6">
           <div className="card-body">
-            <a href="#" className="title text-dark h5 d-block mb-0">
-              Calvin Carlo
-            </a>
-            <small className="text-muted speciality">Eye Care</small>
+            <Link
+              to={`/admin/clinic/${data?.userId}`}
+              className="title text-dark h5 d-block mb-0"
+            >
+              {data?.firstName}
+            </Link>
             <div className="d-flex justify-content-between align-items-center mt-2">
               <ul className="list-unstyled mb-0">
                 {starts?.map((start, i) => (
@@ -52,15 +55,15 @@ export default function ClinicCard({ data }) {
             <ul className="list-unstyled mt-2 mb-0">
               <li className="d-flex">
                 <i className="ri-map-pin-line text-primary align-middle"></i>
-                <small className="text-muted ms-2">63, PG Shustoke, UK</small>
+                <small className="text-muted ms-2">{data?.address}</small>
               </li>
               <li className="d-flex mt-2">
-                <i className="ri-time-line text-primary align-middle"></i>
-                <small className="text-muted ms-2">Mon: 2:00PM - 6:00PM</small>
+                <i className="ri-phone-line text-primary align-middle"></i>
+                <small className="text-muted ms-2">{data?.phone}</small>
               </li>
               <li className="d-flex mt-2">
-                <i className="ri-money-dollar-circle-line text-primary align-middle"></i>
-                <small className="text-muted ms-2">$ 75 USD / Visit</small>
+                <i className="ri-message-line text-primary align-middle"></i>
+                <small className="text-muted ms-2">{data?.email}</small>
               </li>
             </ul>
           </div>

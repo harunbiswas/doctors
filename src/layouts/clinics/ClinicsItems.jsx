@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import ClinicCard from "../../components/card/ClinicCard";
 import Values from "../../Values";
 
 export default function CLinicItems() {
@@ -21,8 +21,8 @@ export default function CLinicItems() {
   return (
     <div className="row">
       {clinics?.map((clinic, i) => (
-        <div key={i} className="col-xl-3 col-md-4 col-12 mt-5">
-          <div className="card features feature-primary bg-transparent border-0">
+        <div key={i} className="col-xl-4 col-md-4 col-12 mt-5">
+          {/* <div className="card features feature-primary bg-transparent border-0">
             <div className="icon text-center rounded-md">
               {<img src={clinic.image} alt="" />}
             </div>
@@ -36,7 +36,8 @@ export default function CLinicItems() {
                 Read More <i className="ri-arrow-right-line align-middle"></i>
               </Link>
             </div>
-          </div>
+          </div> */}
+          <ClinicCard data={clinic} />
         </div>
       ))}
     </div>

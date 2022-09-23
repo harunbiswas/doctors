@@ -22,25 +22,39 @@ function App() {
   const [address, setAddress] = useState("");
   const handleChange = (e) => {
     setAddress(e);
+    setErrors({ ...errors, latitude: null, longitude: null });
   };
 
   const handleSelect = (e) => {
     setAddress(e);
+    setErrors({ ...errors, latitude: null, longitude: null });
   };
 
   const departmentHandler = (e) => {
     setDepartment(e.target.value);
+    setErrors({ ...errors, department: null });
   };
 
   const clinicNameHandler = (e) => {
     setClinicName(e.target.value);
+    setErrors({ ...errors, name: null });
   };
+
+  const [searchData, setSearchData] = useState([]);
+  const searchHandler = (e) => {};
+
+  const [errors, setErrors] = useState({});
 
   return (
     <div className="App">
       <BrowserRouter>
         <Context.Provider
           value={{
+            errors,
+            setErrors,
+            searchData,
+            setSearchData,
+            searchHandler,
             department,
             departmentHandler,
             clinicName,

@@ -1,3 +1,4 @@
+import axios from "axios";
 import { useContext, useEffect } from "react";
 import PlacesAutocomplete, {
   geocodeByAddress,
@@ -5,6 +6,7 @@ import PlacesAutocomplete, {
 } from "react-places-autocomplete";
 import { useNavigate } from "react-router-dom";
 import Context from "../../context/Context";
+import Values from "../../Values";
 
 export default function SearchForm() {
   const context = useContext(Context);
@@ -25,6 +27,9 @@ export default function SearchForm() {
     handleChange,
     handleSelect,
     clinicNameHandler,
+    setSearchData,
+    errors,
+    setErrors,
   } = context;
   useEffect(() => {
     geocodeByAddress(address)
@@ -32,19 +37,37 @@ export default function SearchForm() {
       .then((latLng) => {
         setLocation({ latitude: latLng.lat, longitude: latLng.lng });
       })
-      .catch((error) => console.log("Error", error));
+      .catch((error) => {
+        setLocation({ latitude: null, longitude: null });
+      });
   }, [address]);
 
   const navigate = useNavigate();
   const searchHandler = (e) => {
     e.preventDefault();
-    navigate("/search");
+    let url;
+    url = `${Values.BASE_URL}/search/${activeBtn}`;
+    const data = {
+      latitude: location.latitude,
+      longitude: location.longitude,
+      department,
+      name: clinicName,
+    };
+
+    axios
+      .post(url, data)
+      .then((d) => {
+        setSearchData(d.data);
+        navigate("/search");
+      })
+      .catch((e) => {
+        setErrors(e.response.data);
+      });
   };
 
   return (
     <div className="mt-4 pt-2">
       <form
-        target="/search"
         className="rounded text-start shadow p-4 bg-white-50"
         onSubmit={(e) => searchHandler(e)}
       >
@@ -72,7 +95,7 @@ export default function SearchForm() {
                     <input
                       {...getInputProps({
                         placeholder: "Location",
-                        className: "form-control border-0",
+                        className: ` form-control border-0`,
                         name: "location",
                       })}
                     />
@@ -119,6 +142,11 @@ export default function SearchForm() {
                 )}
               </PlacesAutocomplete>
             </div>
+            {errors && (errors.latitude || errors.longitude) && (
+              <span className="error-msg text-danger">
+                {errors.latitude.msg || errors.longitude.msg}
+              </span>
+            )}
           </div>
           {/* <!--end col--> */}
 
@@ -161,6 +189,15 @@ export default function SearchForm() {
                 </>
               )}
             </div>
+            {errors && activeBtn === "clinics" && errors.name && (
+              <span className="error-msg text-danger">{errors?.name?.msg}</span>
+            )}
+
+            {errors && activeBtn === "doctors" && errors.department && (
+              <span className="error-msg text-danger">
+                {errors?.department?.msg}
+              </span>
+            )}
           </div>
           {/* <!--end col--> */}
 
@@ -176,7 +213,7 @@ export default function SearchForm() {
             {btns?.map((btn) => (
               <div className="mx-2 d-inline">
                 <button
-                  type="button"
+                  type="submit"
                   onClick={(e) => btnHandler(btn)}
                   className={`btn text-uppercase ${
                     (activeBtn === btn && "btn-primary") || "btn-dark"

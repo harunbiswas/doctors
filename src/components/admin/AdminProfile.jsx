@@ -31,15 +31,16 @@ export default function AdminProfile() {
         `${Values.BASE_URL}/patient/list/${data.id}`) ||
       "";
 
-    axios
-      .get(url)
-      .then((d) => {
-        setImg(d.data.image);
-      })
-      .catch((e) => {
-        console.log(e.response);
-      });
-    console.log(url);
+    if (data) {
+      axios
+        .get(url)
+        .then((d) => {
+          setImg(d.data.image);
+        })
+        .catch((e) => {
+          console.log(e.response);
+        });
+    }
   }, []);
 
   return (
@@ -97,7 +98,7 @@ export default function AdminProfile() {
             Dashboard
           </Link>
           <Link
-            to={`/${data.role}-dashboard/profile/${data.id}`}
+            to={`/${data?.role}-dashboard/profile/${data?.id}`}
             className="dropdown-item text-dark"
           >
             <span className="mb-0 d-inline-block me-1">
