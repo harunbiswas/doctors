@@ -39,13 +39,19 @@ export default function Search() {
                 }}
               >
                 <div className="row ">
-                  {items?.map((item, i) => (
-                    <div key={i} className="col-12 my-2 py-1">
-                      {(activeBtn === "doctors" && (
-                        <DoctorCard data={item} />
-                      )) || <ClinicCardFrontend data={item} />}
-                    </div>
-                  ))}
+                  {(items &&
+                    items.length > 0 &&
+                    items?.map((item, i) => (
+                      <div key={i} className="col-12 my-2 py-1">
+                        {(activeBtn === "doctors" && (
+                          <DoctorCard data={item} />
+                        )) || <ClinicCardFrontend data={item} />}
+                      </div>
+                    ))) || (
+                    <h2 className="text-danger text-center py-3">
+                      No data found
+                    </h2>
+                  )}
                 </div>
               </div>
             </div>

@@ -1,12 +1,11 @@
-import BookingForm from "../frontend/booking/BookingForm";
-import GustBookingForm from "../frontend/booking/GustBookingForm";
+import PriceTable from "../../components/clinic/PriceTable";
 
-export default function Aperments() {
+export default function Pricings() {
   return (
-    <>
+    <div className="priveings">
       <div className="container mt-100 mt-60">
         <div className="row align-items-lg-end">
-          <div className="col-md-6">
+          <div className="col-md-5">
             <div className="me-xl-3">
               <div className="section-title mb-4 pb-2">
                 <i className="uil uil-notes text-primary h2"></i>
@@ -63,19 +62,13 @@ export default function Aperments() {
           </div>
           {/* <!--end col--> */}
 
-          <div className="col-md-6 mt-4 mt-sm-0 pt-2 pt-sm-0">
-            <div className="card border-0 rounded shadow p-4 ms-xl-3">
-              {(localStorage.getItem("login") &&
-                JSON.parse(localStorage.getItem("login")).value.loginData
-                  .role === "patient" && <BookingForm />) || (
-                <GustBookingForm />
-              )}
-            </div>
+          <div className="col-md-7 mt-4 mt-sm-0 pt-2 pt-sm-0">
+            <PriceTable />
           </div>
           {/* <!--end col--> */}
         </div>
         {/* <!--end row--> */}
       </div>
-    </>
+    </div>
   );
 }

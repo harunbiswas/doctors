@@ -6,9 +6,10 @@ import DoctorProfileExperience from "../../layouts/doctor-dashboard/DoctorProfil
 import DoctorProfileOverview from "../../layouts/doctor-dashboard/DoctorProfileOverview";
 import DoctorProfileReviews from "../../layouts/doctor-dashboard/DoctorProfileReviews";
 import DoctorProfileTimeTable from "../../layouts/doctor-dashboard/DoctorProfileTimeTable";
+import CommonHero from "../../layouts/frontend/basic/CommonHero";
 import Values from "../../Values";
 
-export default function DoctorProfile() {
+export default function DoctorProfileFrontend() {
   const [data, setData] = useState({});
   const [buttons, setButtons] = useState([
     {
@@ -53,12 +54,18 @@ export default function DoctorProfile() {
       });
   }, []);
 
+  const info = {
+    title: data?.firstName + " " + data?.lastName,
+    text: data.bio,
+  };
+
   return (
     <>
+      <CommonHero data={info} />
       <div className="doctor-profile">
         {/* <!-- Start Hero --> */}
-        <section className="bg-dashboard ">
-          <div className="container ">
+        <section className="bg-dashboard my-lg-5">
+          <div className="container mt-xl-5">
             <div className="row">
               <div className="col-12">
                 <div className="card border-0 rounded shadow">
@@ -66,7 +73,7 @@ export default function DoctorProfile() {
                     <div className="col-xl-4 col-lg-4 col-md-5 position-relative">
                       <img
                         src={data?.image}
-                        className="img-fluid dr-profile-img"
+                        className="img-fluid  dr-profile-img"
                         alt=""
                       />
                     </div>
@@ -74,9 +81,7 @@ export default function DoctorProfile() {
                     <div className="col-xl-8 col-lg-8 col-md-7">
                       <div className="p-lg-5 p-4">
                         <small className="text-muted">
-                          {moment(new Date()).format(
-                            "do MMMM, yyyy - hh:mm: A"
-                          )}
+                          {moment(new Date()).format("LLLL")}
                         </small>
 
                         <h4 className="my-3">
@@ -86,12 +91,11 @@ export default function DoctorProfile() {
                           </span>
                         </h4>
                         <p className="para-desc text-muted">{data?.bio}</p>
-
-                        <h6 className="mb-0">
-                          You have{" "}
-                          <span className="text-primary">18 patients</span>{" "}
-                          remaining today!
-                        </h6>
+                        <div className="py-3">
+                          <button className="btn btn-primary">
+                            Booking Now
+                          </button>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -149,10 +153,7 @@ export default function DoctorProfile() {
             </div>
             {/* <!--end row--> */}
           </div>
-          {/* <!--end container--> */}
         </section>
-        {/* <!--end section--> */}
-        {/* <!-- End Hero --> */}
       </div>
     </>
   );
