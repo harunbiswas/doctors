@@ -42,10 +42,14 @@ export default function LoginForm() {
           expiry: new Date().getTime() + 864000000,
         };
         localStorage.setItem("login", JSON.stringify(item));
-        location.reload();
+        if (item.value.loginData.role) {
+          history.back();
+        } else {
+          location.reload();
+        }
       })
       .catch((e) => {
-        setErrors(e.response.data);
+        setErrors(e.response);
       });
   };
 

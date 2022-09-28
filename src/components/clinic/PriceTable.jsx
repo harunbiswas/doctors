@@ -1,144 +1,120 @@
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import Values from "../../Values";
+
 export default function PriceTable() {
+  const [tables, setTabels] = useState([
+    {
+      id: "1",
+      name: "Plus",
+      fee: "100",
+      time: "month",
+      feture: [
+        { title: "unlimited doctor" },
+        { title: "unlimited doctor" },
+        { title: "unlimited doctor" },
+        { title: "unlimited doctor" },
+        { title: "unlimited doctor" },
+        { title: "unlimited doctor" },
+        { title: "unlimited doctor" },
+        { title: "unlimited doctor" },
+        { title: "unlimited doctor" },
+      ],
+    },
+    {
+      id: "2",
+      name: "premium",
+      fee: "1000",
+      time: "year",
+      feture: [
+        { title: "unlimited doctor" },
+        { title: "unlimited doctor" },
+        { title: "unlimited doctor" },
+        { title: "unlimited doctor" },
+        { title: "unlimited doctor" },
+        { title: "unlimited doctor" },
+        { title: "unlimited doctor" },
+        { title: "unlimited doctor" },
+        { title: "unlimited doctor" },
+      ],
+    },
+  ]);
+  const [btnText, setBtnText] = useState("subscriptions");
+  const navigate = useNavigate();
+  const [loginData, setLoginData] = useState(
+    JSON.parse(localStorage.getItem("login"))
+  );
+  const url = `${Values.BASE_URL}/subscription`;
+  const subsCriptionHandler = async (e) => {
+    if (loginData && loginData.value.loginData.role === "patient") {
+      try {
+        if (btnText === "upgrade") {
+          const result = await axios.put(url, e, Values.consfig);
+          location.reload();
+        } else {
+          const result = await axios.post(url, e, Values.consfig);
+          setBtnText("upgrade");
+        }
+      } catch (e) {
+        console.log(e.response);
+      }
+    } else {
+      navigate("/login", true);
+    }
+  };
+
+  useEffect(() => {
+    if (localStorage.getItem("login")) {
+      axios
+        .get(url, Values.consfig)
+        .then((d) => {
+          if (d.data && d.data.length > 0) {
+            setBtnText("upgrade");
+          }
+        })
+        .catch((e) => {
+          console.log(e.response);
+        });
+    }
+  }, []);
   return (
     <div className="pricing ">
       <div class="row">
-        <div class="col-lg-6">
-          <div class="card mb-5 mb-lg-0">
-            <div class="card-body">
-              <h5 class="card-title text-muted text-uppercase text-center">
-                Plus
-              </h5>
-              <h6 class="card-price text-center">
-                $9<span class="period">/month</span>
-              </h6>
-              <hr />
-              <ul class="fa-ul">
-                <li>
-                  <span class="fa-li">
-                    <i class="fas fa-check"></i>
-                  </span>
-                  <strong>5 Users</strong>
-                </li>
-                <li>
-                  <span class="fa-li">
-                    <i class="fas fa-check"></i>
-                  </span>
-                  50GB Storage
-                </li>
-                <li>
-                  <span class="fa-li">
-                    <i class="fas fa-check"></i>
-                  </span>
-                  Unlimited Public Projects
-                </li>
-                <li>
-                  <span class="fa-li">
-                    <i class="fas fa-check"></i>
-                  </span>
-                  Community Access
-                </li>
-                <li>
-                  <span class="fa-li">
-                    <i class="fas fa-check"></i>
-                  </span>
-                  Unlimited Private Projects
-                </li>
-                <li>
-                  <span class="fa-li">
-                    <i class="fas fa-check"></i>
-                  </span>
-                  Dedicated Phone Support
-                </li>
-                <li>
-                  <span class="fa-li">
-                    <i class="fas fa-check"></i>
-                  </span>
-                  Free Subdomain
-                </li>
-                <li class="text-muted">
-                  <span class="fa-li">
-                    <i class="fas fa-times"></i>
-                  </span>
-                  Monthly Status Reports
-                </li>
-              </ul>
-              <div class="d-grid">
-                <button class="btn btn-primary text-uppercase">
-                  subscriptions
-                </button>
+        {tables?.map((table) => (
+          <div key={table?.id} class="col-lg-6">
+            <div class="card mb-5 mb-lg-0">
+              <div class="card-body">
+                <h5 class="card-title text-muted text-uppercase text-center">
+                  {table?.name}
+                </h5>
+                <h6 class="card-price text-center">
+                  ${table?.fee}
+                  <span class="period">/{table?.time}</span>
+                </h6>
+                <hr />
+                <ul class="fa-ul">
+                  {table?.feture?.map((data, i) => (
+                    <li>
+                      <span class="fa-li">
+                        <i class="fas fa-check"></i>
+                      </span>
+                      <strong>{data?.title}</strong>
+                    </li>
+                  ))}
+                </ul>
+                <div class="d-grid">
+                  <button
+                    onClick={(e) => subsCriptionHandler(table)}
+                    class="btn btn-primary text-uppercase"
+                  >
+                    {btnText}
+                  </button>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        {/* <!-- Pro Tier --> */}
-        <div class="col-lg-6">
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title text-muted text-uppercase text-center">
-                Pro
-              </h5>
-              <h6 class="card-price text-center">
-                $49<span class="period">/year</span>
-              </h6>
-              <hr />
-              <ul class="fa-ul">
-                <li>
-                  <span class="fa-li">
-                    <i class="fas fa-check"></i>
-                  </span>
-                  <strong>Unlimited Users</strong>
-                </li>
-                <li>
-                  <span class="fa-li">
-                    <i class="fas fa-check"></i>
-                  </span>
-                  150GB Storage
-                </li>
-                <li>
-                  <span class="fa-li">
-                    <i class="fas fa-check"></i>
-                  </span>
-                  Unlimited Public Projects
-                </li>
-                <li>
-                  <span class="fa-li">
-                    <i class="fas fa-check"></i>
-                  </span>
-                  Community Access
-                </li>
-                <li>
-                  <span class="fa-li">
-                    <i class="fas fa-check"></i>
-                  </span>
-                  Unlimited Private Projects
-                </li>
-                <li>
-                  <span class="fa-li">
-                    <i class="fas fa-check"></i>
-                  </span>
-                  Dedicated Phone Support
-                </li>
-                <li>
-                  <span class="fa-li">
-                    <i class="fas fa-check"></i>
-                  </span>
-                  <strong>Unlimited</strong> Free Subdomains
-                </li>
-                <li>
-                  <span class="fa-li">
-                    <i class="fas fa-check"></i>
-                  </span>
-                  Monthly Status Reports
-                </li>
-              </ul>
-              <div class="d-grid">
-                <button class="btn btn-primary text-uppercase">
-                  subscriptions
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
+        ))}
       </div>
     </div>
   );
