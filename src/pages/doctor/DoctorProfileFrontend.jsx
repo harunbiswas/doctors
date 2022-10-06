@@ -2,6 +2,7 @@ import axios from "axios";
 import moment from "moment";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import AppointmentModal from "../../components/modal/AppointmentModal";
 import DoctorProfileExperience from "../../layouts/doctor-dashboard/DoctorProfileExperience";
 import DoctorProfileOverview from "../../layouts/doctor-dashboard/DoctorProfileOverview";
 import DoctorProfileReviews from "../../layouts/doctor-dashboard/DoctorProfileReviews";
@@ -59,13 +60,43 @@ export default function DoctorProfileFrontend() {
     text: data.bio,
   };
 
+  // booking handler
+  const loginData =
+    JSON.parse(localStorage.getItem("login"))?.value.loginData || "";
+
+  const bookingHandler = async (e) => {
+    if (loginData) {
+      try {
+        const url = `${Values.BASE_URL}/subscription`;
+        const result = await axios.get(url, Values.consfig);
+        if (
+          result.data.length > 0 &&
+          new Date(result.data[0].expireDate).getTime() > new Date().getTime()
+        ) {
+          console.log("subscription");
+        } else {
+          console.log("payment");
+        }
+      } catch (e) {
+        console.log(e.response);
+      }
+    } else {
+      console.log("test");
+    }
+  };
+
+  const [isBookingForm, setIsbookingForm] = useState(false);
+  const isBookingFormHandler = () => {
+    setIsbookingForm(!isBookingForm);
+  };
+
   return (
     <>
       <CommonHero data={info} />
       <div className="doctor-profile">
         {/* <!-- Start Hero --> */}
-        <section className="bg-dashboard my-lg-5">
-          <div className="container mt-xl-5">
+        <section className="bg-dashboard ">
+          <div className="container ">
             <div className="row">
               <div className="col-12">
                 <div className="card border-0 rounded shadow">
@@ -92,7 +123,10 @@ export default function DoctorProfileFrontend() {
                         </h4>
                         <p className="para-desc text-muted">{data?.bio}</p>
                         <div className="py-3">
-                          <button className="btn btn-primary">
+                          <button
+                            className="btn btn-primary"
+                            onClick={(e) => isBookingFormHandler(e)}
+                          >
                             Booking Now
                           </button>
                         </div>
@@ -100,6 +134,12 @@ export default function DoctorProfileFrontend() {
                     </div>
                   </div>
                 </div>
+                {isBookingForm && (
+                  <AppointmentModal
+                    data={data}
+                    handler={isBookingFormHandler}
+                  />
+                )}
               </div>
               {/* <!--end col--> */}
             </div>

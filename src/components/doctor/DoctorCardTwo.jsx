@@ -11,7 +11,7 @@ export default function DoctorCardTwo({ data }) {
           <ul className="list-unstyled team-social mb-0">
             <li>
               <a
-                href="https://facebook.com"
+                href={`https://facebook.com/${data.facebook}`}
                 target="blanck"
                 className="btn btn-icon btn-pills btn-soft-primary"
               >
@@ -22,7 +22,7 @@ export default function DoctorCardTwo({ data }) {
             </li>
             <li className="mt-2">
               <a
-                href="https://linkedin.com"
+                href={`https://linkedin.com${data.linkedin}`}
                 target="blanck"
                 className="btn btn-icon btn-pills btn-soft-primary"
               >
@@ -31,20 +31,22 @@ export default function DoctorCardTwo({ data }) {
                 </i>
               </a>
             </li>
+            {data?.github && (
+              <li className="mt-2">
+                <a
+                  href={"https://github.com/" + data?.github}
+                  target="blanck"
+                  className="btn btn-icon btn-pills btn-soft-primary"
+                >
+                  <i data-feather="github" className="icons">
+                    <TbBrandGithub />
+                  </i>
+                </a>
+              </li>
+            )}
             <li className="mt-2">
               <a
-                href="https://github.com"
-                target="blanck"
-                className="btn btn-icon btn-pills btn-soft-primary"
-              >
-                <i data-feather="github" className="icons">
-                  <TbBrandGithub />
-                </i>
-              </a>
-            </li>
-            <li className="mt-2">
-              <a
-                href="https://twitter.com"
+                href={"https://twitter.com/" + data?.twitter}
                 target="blanck"
                 className="btn btn-icon btn-pills btn-soft-primary"
               >
@@ -57,7 +59,7 @@ export default function DoctorCardTwo({ data }) {
         </div>
         <div className="card-body content text-center">
           <Link
-            to={`/clinic-dashboard/doctor/${data && data.userId}`}
+            to={`/doctor/${data && data.userId}`}
             className="title text-dark h5 d-block mb-0"
           >
             {data && data.firstName + " " + data.lastName}

@@ -1,5 +1,5 @@
 import GoogleMapReact from "google-map-react";
-import React, { useState } from "react";
+import React from "react";
 import pin from "../../assets/images/pin-image.png";
 import Values from "../../Values";
 
@@ -10,24 +10,19 @@ const AnyReactComponent = ({ text }) => (
 );
 
 export default function SingleMap({ info }) {
-  const [data, setData] = useState({
-    latitude: Number(info.latitude),
-    longitude: Number(info.longitude),
-  });
-
   const defaultProps = {
     center: {
-      lat: data.latitude,
-      lng: data.longitude,
+      lat: Number(info.latitude),
+      lng: Number(info.longitude),
     },
-    zoom: 16,
+    zoom: 17,
     mapTypeId: "satellite",
   };
 
   return (
     // Important! Always set the container height explicitly
     <div style={{ height: "400px", width: "100%" }}>
-      {true && (
+      {info && info.latitude > 0 && (
         <GoogleMapReact
           bootstrapURLKeys={{ key: Values.API_KEY }}
           defaultCenter={defaultProps.center}
@@ -38,8 +33,8 @@ export default function SingleMap({ info }) {
           }}
         >
           <AnyReactComponent
-            lat={data.latitude}
-            lng={data.longitude}
+            lat={Number(info.latitude)}
+            lng={Number(info.longitude)}
             text="Haru"
           />
         </GoogleMapReact>

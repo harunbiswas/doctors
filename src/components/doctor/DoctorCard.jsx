@@ -15,7 +15,6 @@ export default function DoctorCard({ data }) {
     }
   };
 
-  console.log(data);
   return (
     <>
       <div className="card team border-0 rounded shadow overflow-hidden">

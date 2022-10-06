@@ -47,11 +47,10 @@ export default function PriceTable() {
   );
   const url = `${Values.BASE_URL}/subscription`;
   const subsCriptionHandler = async (e) => {
-    if (loginData && loginData.value.loginData.role === "patient") {
+    if (loginData && loginData.value.loginData.role === "clinic") {
       try {
         if (btnText === "upgrade") {
           const result = await axios.put(url, e, Values.consfig);
-          location.reload();
         } else {
           const result = await axios.post(url, e, Values.consfig);
           setBtnText("upgrade");
@@ -60,7 +59,7 @@ export default function PriceTable() {
         console.log(e.response);
       }
     } else {
-      navigate("/login", true);
+      navigate("/clinicSingup", true);
     }
   };
 
@@ -95,7 +94,7 @@ export default function PriceTable() {
                 <hr />
                 <ul class="fa-ul">
                   {table?.feture?.map((data, i) => (
-                    <li>
+                    <li key={i}>
                       <span class="fa-li">
                         <i class="fas fa-check"></i>
                       </span>

@@ -5,8 +5,12 @@ export default function LogoutBtn() {
   // do logout
   const logoutHandler = () => {
     localStorage.clear("login");
-    navigate("/", true);
-    console.log("test");
+
+    if (window.location.pathname === "/") {
+      location.reload();
+    } else {
+      navigate("/", true);
+    }
   };
   return (
     <button
