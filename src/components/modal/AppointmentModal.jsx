@@ -77,19 +77,22 @@ export default function AppointmentModal({ data, handler }) {
   });
   // user get data handler
   useEffect(() => {
-    if (loginData || subscription) {
+    setAppoData({
+      ...appoData,
+      clinicId: data.clinicID,
+      doctorId: data.id,
+      departmentId: data.departmentId,
+    });
+    if (loginData) {
       setAppoData({
         ...appoData,
         name: loginData.firstName + " " + loginData.lastName,
         email: loginData.email,
-        clinicId: data.clinicId,
-        doctorId: data.id,
-        departmentId: data.departmentId,
         phone: userData.phone,
         age: userData.age,
       });
     }
-  }, [subscription, data, userData]);
+  }, [data, userData]);
 
   // user data handler
 
@@ -116,7 +119,7 @@ export default function AppointmentModal({ data, handler }) {
 
   const submitHandler = async (e) => {
     e.preventDefault();
-    console.log(appoData);
+
     try {
       const url = `${Values.BASE_URL}/appointment`;
       const result = await axios.post(url, appoData);
@@ -157,6 +160,115 @@ export default function AppointmentModal({ data, handler }) {
           </button>
           <form action="" onSubmit={(e) => submitHandler(e)}>
             <div className="row p-4">
+              {!loginData && (
+                <>
+                  <div className="col-lg-12">
+                    <div className="mb-3">
+                      <label className="form-label">
+                        Name <span className="text-danger">*</span>
+                      </label>
+                      <input
+                        name="name"
+                        id="name"
+                        value={appoData.name}
+                        onChange={(e) => appoDatahandler(e)}
+                        rows="4"
+                        type="text"
+                        className={`form-control ${
+                          (errors && errors.name && "errors") || ""
+                        }`}
+                        placeholder="Full Name :"
+                      />
+                      {errors && errors.name && (
+                        <span className="error-msg text-danger">
+                          {errors.name.msg}
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                  {/* <!--end col--> */}
+
+                  <div className="col-lg-12">
+                    <div className="mb-3">
+                      <label className="form-label">
+                        Email <span className="text-danger">*</span>
+                      </label>
+                      <input
+                        name="email"
+                        id="email"
+                        type="email"
+                        value={appoData.email}
+                        onChange={(e) => appoDatahandler(e)}
+                        rows="4"
+                        className={`form-control ${
+                          (errors && errors.email && "errors") || ""
+                        }`}
+                        placeholder="Email :"
+                      />
+                      {errors && errors.email && (
+                        <span className="error-msg text-danger">
+                          {errors.email.msg}
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                  {/* <!--end col--> */}
+
+                  <div className="col-lg-12">
+                    <div className="mb-3">
+                      <label className="form-label">
+                        Phone <span className="text-danger">*</span>
+                      </label>
+                      <input
+                        name="phone"
+                        id="phone"
+                        value={appoData.phone}
+                        onChange={(e) => appoDatahandler(e)}
+                        rows="4"
+                        type="text"
+                        className={`form-control ${
+                          (errors && errors.phone && "errors") || ""
+                        }`}
+                        placeholder="Phone:"
+                      />
+                      {errors && errors.phone && (
+                        <span className="error-msg text-danger">
+                          {errors.phone.msg}
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                  {/* <!--end col--> */}
+
+                  <div className="col-lg-12">
+                    <div className="mb-3">
+                      <label className="form-label">
+                        Age <span className="text-danger">*</span>
+                      </label>
+                      <input
+                        name="age"
+                        age
+                        id="age"
+                        value={appoData.age}
+                        onChange={(e) => appoDatahandler(e)}
+                        rows="4"
+                        type="text"
+                        className={`form-control ${
+                          (errors && errors.age && "errors") || ""
+                        }`}
+                        placeholder="Age:"
+                      />
+                      {errors && errors.age && (
+                        <span className="error-msg text-danger">
+                          {errors.age.msg}
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                  {/* <!--end col--> */}
+                </>
+              )}
+
               <div className="col-lg-12">
                 <div className="mb-3">
                   <label htmlFor="email" className="form-label">
