@@ -16,9 +16,14 @@ export default function ClinicCardFrontend({ data }) {
   return (
     <div className="card team border-0 rounded shadow overflow-hidden">
       <div className="row align-items-center">
-        <div className="col-md-6">
-          <div className="team-person position-relative overflow-hidden">
-            <img src={data?.image} className="img-fluid" alt="" />
+        <div className="col-md-12">
+          <div className="team-person position-relative overflow-hidden ">
+            <img
+              src={data?.image}
+              className="img-fluid"
+              style={{ height: "200px", width: "100%", objectFit: "cover" }}
+              alt=""
+            />
 
             <ul className="list-unstyled team-like">
               <li>
@@ -34,7 +39,7 @@ export default function ClinicCardFrontend({ data }) {
             </ul>
           </div>
         </div>
-        <div className="col-md-6">
+        <div className="col-md-12">
           <div className="card-body">
             <Link
               to={`/clinic/${data?.userId}`}

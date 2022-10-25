@@ -4,19 +4,36 @@ import DoctorCardTwo from "../../../components/doctor/DoctorCardTwo";
 import Values from "../../../Values";
 
 export default function Doctors() {
-  const [doctors, setDoctors] = useState([1, 1, 1, 1]);
+  const [doctors, setDoctors] = useState([]);
+  const [location, setLocation] = useState({
+    latitude: null,
+    longitude: null,
+  });
+
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition((position) => {
+      setLocation({
+        latitude: position.coords.latitude,
+        longitude: position.coords.longitude,
+      });
+    });
+  }, []);
 
   useEffect(() => {
     const url = `${Values.BASE_URL}/frDoctors`;
-    axios
-      .get(url)
-      .then((d) => {
-        setDoctors(d.data);
-      })
-      .catch((e) => {
-        console.log(e.response);
-      });
-  }, []);
+    if (location && location.latitude && location.longitude) {
+      axios
+        .get(url, {
+          headers: location,
+        })
+        .then((d) => {
+          setDoctors(d.data);
+        })
+        .catch((e) => {
+          console.log(e.response);
+        });
+    }
+  }, [location]);
 
   return (
     <>
@@ -24,7 +41,7 @@ export default function Doctors() {
         <div className="row justify-content-center">
           <div className="col-12">
             <div className="section-title text-center mb-4 pb-2">
-              <h4 className="title mb-4">Doctors</h4>
+              <h4 className="title mb-4">Nearby Doctors</h4>
               <p className="text-muted mx-auto para-desc mb-0">
                 Great doctor if you need your family member to get effective
                 immediate assistance, emergency treatment or a simple

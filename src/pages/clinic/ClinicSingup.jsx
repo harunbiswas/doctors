@@ -14,7 +14,9 @@ export default function ClinicSingup() {
             <div className="col-lg-12 col-md-12">
               <div className="card login-page bg-white shadow mt-4 rounded border-0">
                 <div className="card-body">
-                  <h4 className="text-center">Sign Up</h4>
+                  <h4 className="text-center">
+                    Create an account on your Clinic
+                  </h4>
                   <AddClinicFrom />
                   <div className="mx-auto d-inline-block me-5">
                     <p className="mb-0 mt-3">

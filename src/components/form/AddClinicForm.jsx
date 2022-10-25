@@ -120,7 +120,7 @@ export default function AddClinicFrom() {
           ""}
 
         <div className="col-lg-5 col-md-8 text-center text-md-start mt-4 mt-sm-0">
-          <h5 className="">Upload your picture</h5>
+          <h5 className="">Upload Clinic picture</h5>
           <p className="text-muted mb-0">
             For best results, use an image at least 600px by 600px in either
             .jpg or .png format
@@ -165,7 +165,7 @@ export default function AddClinicFrom() {
       <div className="row">
         <div className="col-md-6">
           <div className="mb-3">
-            <label className="form-label">Name</label>
+            <label className="form-label">Clinic Name</label>
             <input
               name="name"
               id="name"
@@ -173,7 +173,7 @@ export default function AddClinicFrom() {
               className={`form-control ${
                 (errors && errors.name && "errors") || ""
               }`}
-              placeholder=" Name :"
+              placeholder=" Clinic Name :"
               value={name}
               onChange={(e) => nameHandler(e)}
             />
@@ -205,7 +205,7 @@ export default function AddClinicFrom() {
 
         <div className="col-md-6">
           <div className="mb-3">
-            <label className="form-label">Your Email</label>
+            <label className="form-label">Clinic Email</label>
             <input
               name="email"
               id="email"
@@ -213,7 +213,7 @@ export default function AddClinicFrom() {
               className={`form-control ${
                 (errors && errors.email && "errors") || ""
               }`}
-              placeholder="Your email :"
+              placeholder="Clinic email :"
               value={email}
               onChange={(e) => emailHandler(e)}
             />

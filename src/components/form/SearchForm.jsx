@@ -71,7 +71,7 @@ export default function SearchForm() {
         className="rounded text-start shadow p-4 bg-white-50"
         onSubmit={(e) => searchHandler(e)}
       >
-        <div className="row align-items-center">
+        <div className="row align-items-start">
           <div className="col-md">
             <div
               className="input-group bg-white border rounded position-relative "
@@ -208,22 +208,23 @@ export default function SearchForm() {
               </button>
             </div>
           </div>
+
           {/* <!--end col--> */}
-          <div className="col-md-12 mt-4">
-            {btns?.map((btn) => (
-              <div className="mx-2 d-inline">
-                <button
-                  type="submit"
-                  onClick={(e) => btnHandler(btn)}
-                  className={`btn text-uppercase ${
-                    (activeBtn === btn && "btn-primary") || "btn-dark"
-                  }`}
-                >
-                  {btn}
-                </button>
-              </div>
-            ))}
-          </div>
+        </div>
+        <div className="col-md-12 mt-4">
+          {btns?.map((btn) => (
+            <div className="mx-2 d-inline">
+              <button
+                type="submit"
+                onClick={(e) => btnHandler(btn)}
+                className={`btn text-uppercase ${
+                  (activeBtn === btn && "btn-primary") || "btn-dark"
+                }`}
+              >
+                {btn}
+              </button>
+            </div>
+          ))}
         </div>
       </form>
     </div>

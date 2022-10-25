@@ -1,9 +1,6 @@
-import { useState } from "react";
 import CLinicItems from "../clinics/ClinicsItems";
 
 export default function MadicalServices() {
-  const [services, setServices] = useState([1, 1, 1, 1, 1, 1, 1, 1]);
-
   return (
     <>
       <div className="container mt-100 mt-60">
@@ -13,7 +10,7 @@ export default function MadicalServices() {
               <span className="badge badge-pill badge-soft-primary mb-3">
                 Clinics
               </span>
-              <h4 className="title mb-4">Our Clinic Services</h4>
+              <h4 className="title mb-4">Our Valuable Clinics</h4>
               <p className="text-muted mx-auto para-desc mb-0">
                 Great doctor if you need your family member to get effective
                 immediate assistance, emergency treatment or a simple
